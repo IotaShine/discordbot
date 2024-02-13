@@ -5,8 +5,10 @@
     "main": "index.js",
     "scripts": {
         "bot": "node index.js",
-        "refresh": "node deploy-commands.js",
-        "refresh-global": "node deploy-commands-global.js",
+        "refresh": "node ./discord-commands/deploy-commands.js",
+        "refresh-global": "node ./discord-commands/deploy-commands-global.js",
+        "erase": "node ./discord-commands/remove-commands.js",
+        "erase-global": "node ./discord-commands/remove-commands-global.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "",
