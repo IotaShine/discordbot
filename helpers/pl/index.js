@@ -1,5 +1,9 @@
-const listPlaylist = require("./listPlaylist");
-const playlistCreate = require("./playlistCreate");
-const playlistPlay = require("./playlistPlay");
+const requestPlaylists = require("./requestPlaylists");
+const createPlaylist = require("./createPlaylist");
+const requestTracks = require("./requestTracks");
 
-module.exports = { listPlaylist, playlistCreate, playlistPlay };
+module.exports = {
+    requestPlaylists,
+    createPlaylist,
+    requestTracks,
+};
