@@ -1,0 +1,28 @@
+{
+    "name": "discordbot",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "bot": "node index.js",
+        "refresh": "node deploy-commands.js",
+        "refresh-global": "node deploy-commands-global.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@discord-player/extractor": "4.4.1",
+        "@discordjs/opus": "^0.9.0",
+        "@discordjs/voice": "0.16.0",
+        "discord-player": "6.6.2",
+        "discord.js": "14.11.0",
+        "dotenv": "^16.1.4",
+        "ffmpeg-static": "5.1.0",
+        "libsodium-wrappers": "0.7.11",
+        "ytdl-core": "4.11.5"
+    },
+    "devDependencies": {
+        "eslint": "^8.42.0"
+    }
+}

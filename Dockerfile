@@ -1,0 +1,16 @@
+FROM node:20-alpine
+RUN mkdir /bot
+COPY . /bot
+RUN apk add npm
+RUN apk add ffmpeg
+WORKDIR /bot
+RUN npm install
+
+ENV TOKEN=$TOKEN
+ENV CLIENT_ID=$CLIENT_ID
+ENV GUILD_ID=$GUILD_ID
+ENV ACTIVITY=$ACTIVITY
+ENV STATUS=$STATUS
+ENV OWNERID=$OWNERID
+
+CMD [ "./run.sh" ]
