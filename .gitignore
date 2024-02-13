@@ -3,8 +3,3 @@ node_modules/*
 node_modules
 
 .env
-
-commands/meme
-
-helpers/meme
-helpers/playlists/*
