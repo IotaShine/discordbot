@@ -5,6 +5,8 @@ const { Player } = require("discord-player");
 const { YoutubeExtractor } = require("@discord-player/extractor");
 require("dotenv").config();
 const { ACTIVITY, STATUS, TOKEN } = process.env;
+const sqlite3 = require("sqlite3").verbose();
+const { createTables } = require("./helpers/db_commands/db.js");
 
 const client = new Client({
     intents: [
@@ -59,6 +61,7 @@ for (const file of eventFiles) {
     }
 }
 
+// Agregamos el reproductor de música
 client.player = new Player(client, {
     ytdlOptions: {
         quality: "highestaudio",
@@ -67,6 +70,17 @@ client.player = new Player(client, {
 });
 
 client.player.extractors.register(YoutubeExtractor, {});
+
+// agregamos la base de datos
+const db = new sqlite3.Database(path.join(__dirname, "database/discordDB.sqlite3"), err => {
+    if (err) {
+        console.error(err.message);
+        process.exit(1);
+    }
+    console.log("Connected to database successfully.");
+});
+client.db = db;
+createTables(db);
 
 // Login del bot
 client
@@ -81,4 +95,5 @@ client
     .catch(error => {
         console.log(error);
         console.log("There was an error while logging in");
+        process.exit(1);
     });

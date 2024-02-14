@@ -38,19 +38,19 @@ module.exports = {
         const guild = await interaction.guild.id;
 
         switch (command) {
-            case "play":
-                play(interaction, guild);
-                break;
-            case "save":
-                save(interaction, guild);
-                break;
-            case "list":
-                list(interaction);
-                break;
+        case "play":
+            play(interaction, guild);
+            break;
+        case "save":
+            save(interaction, guild);
+            break;
+        case "list":
+            list(interaction);
+            break;
 
-            default:
-                interaction.followUp("No se que hacer");
-                break;
+        default:
+            interaction.followUp("No se que hacer");
+            break;
         }
     },
 };
@@ -131,7 +131,9 @@ const save = async (interaction, guild) => {
                 return song.raw.title;
             })
             .join("\n");
-        const a = await createPlaylist(tracks, guild, nombre);
+
+        const { client } = interaction;
+        const a = await createPlaylist(client, tracks, guild, nombre);
         if (a instanceof Error) throw a;
         return await interaction.followUp({
             embeds: [
