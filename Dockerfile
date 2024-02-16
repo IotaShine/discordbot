@@ -1,10 +1,16 @@
-FROM node:20-alpine
+FROM node:21-slim
+RUN apt-get update && apt-get install -y ffmpeg python3 python3-pip
+
 RUN mkdir /bot
-COPY . /bot
-RUN apk add npm
-RUN apk add ffmpeg
+RUN mkdir -p /bot/database
+
 WORKDIR /bot
-RUN npm install
+COPY ./commands commands/
+COPY ./events events/
+COPY ./helpers helpers/
+COPY index.js package.json deploy-commands-global.js ./
+
+RUN npm install --omit=dev
 
 ENV TOKEN=$TOKEN
 ENV CLIENT_ID=$CLIENT_ID
@@ -13,4 +19,4 @@ ENV ACTIVITY=$ACTIVITY
 ENV STATUS=$STATUS
 ENV OWNERID=$OWNERID
 
-CMD [ "./run.sh" ]
+CMD [ "/bot/index.js" ]

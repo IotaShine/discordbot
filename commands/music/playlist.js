@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require("discord.js");
 const play = require("../../helpers/music/play");
 const save = require("../../helpers/music/save");
 const list = require("../../helpers/music/list");
+const remove = require("../../helpers/music/delete");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -33,7 +34,18 @@ module.exports = {
             subcommand
                 .setName("list")
                 .setDescription("muestro las playlist que están disponibles para este servidor"),
+        ).addSubcommand(subcommand =>
+            subcommand
+                .setName("remove")
+                .setDescription("elimino una playlist que haya guardado")
+                .addStringOption(option =>
+                    option
+                        .setName("nombre")
+                        .setDescription("nombre de la playlist")
+                        .setRequired(true),
+                ),
         ),
+
     async execute(interaction) {
         const command = await interaction.options.getSubcommand();
         const guild = await interaction.guild.id;
@@ -48,6 +60,10 @@ module.exports = {
             case "list":
                 list(interaction, guild);
                 break;
+            case "remove":
+                remove(interaction);
+                break;
+
             default:
                 interaction.followUp("No se que hacer");
                 break;

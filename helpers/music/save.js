@@ -53,7 +53,7 @@ const save = async (interaction, guild) => {
         const { client } = interaction;
         const user_id = interaction.user.id;
         const a = await createPlaylist(client, tracks, user_id, nombre);
-        console.log(await a);
+
         if (a instanceof Error) throw a;
 
         return await interaction.followUp({

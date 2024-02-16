@@ -2,12 +2,14 @@ version: '3'
 services:
   thanujica:
     container_name: discordbot
-    image: discordbot
+    image: iotashine/discordbot
     restart: unless-stopped
+    volumes:
+      - /home/iota/bot:/bot/database
     environment:
-      - TOKEN=your bot token
-      - CLIENT_ID=your client id
-      - GUILD_ID=optional if you want custom commands
-      - ACTIVITY=ONLINE, DND, INVISIBLE, etc
-      - STATUS=The thing you want your bot to be playing
-      - OWNERID=Your Discord ID goes here
+      - TOKEN=${TOKEN}
+      - CLIENT_ID=${CLIENT_ID}
+      - GUILD_ID=${GUILD_ID}
+      - ACTIVITY=${ACTIVITY}
+      - STATUS=${STATUS}
+      - OWNERID=${OWNERID}
