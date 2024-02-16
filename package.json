@@ -8,11 +8,10 @@
         "refresh": "node ./discord-commands/deploy-commands.js",
         "refresh-global": "node ./discord-commands/deploy-commands-global.js",
         "erase": "node ./discord-commands/remove-commands.js",
-        "erase-global": "node ./discord-commands/remove-commands-global.js",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "erase-global": "node ./discord-commands/remove-commands-global.js"
     },
-    "author": "",
-    "license": "ISC",
+    "author": "IotaShine",
+    "license": "MIT",
     "dependencies": {
         "@discord-player/extractor": "4.4.1",
         "@discordjs/opus": "^0.9.0",
