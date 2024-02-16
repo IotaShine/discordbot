@@ -6,7 +6,7 @@ const { YoutubeExtractor } = require("@discord-player/extractor");
 require("dotenv").config();
 const { ACTIVITY, STATUS, TOKEN } = process.env;
 const sqlite3 = require("sqlite3").verbose();
-const { createTables } = require("./helpers/db_commands/db.js");
+const { createTables } = require("./helpers/config/db.js");
 
 const client = new Client({
     intents: [
