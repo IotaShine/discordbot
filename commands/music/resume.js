@@ -3,7 +3,7 @@ const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("resume")
-        .setDescription("le doy play de vuelta a la musica"),
+        .setDescription("le doy play de vuelta a la música"),
 
     async execute(interaction) {
         if (!interaction.member.voice.channel) {
@@ -29,7 +29,7 @@ module.exports = {
             });
         } catch (error) {
             console.log(error);
-            return await interaction.followUp("Ocurrio un error");
+            return await interaction.followUp("Ocurrió un error");
         }
     },
 };

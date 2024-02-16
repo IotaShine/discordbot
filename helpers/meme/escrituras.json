@@ -48,5 +48,10 @@
         "titulo": "Tono",
         "autor": "Iota",
         "escritura": "Evita hablarme con ese tono de piel."
+    },
+    {
+        "titulo": "Calculos",
+        "autor": "Mateo",
+        "escritura": "12 + 1 = 13, cuanto mas me la mamas mas me crece."
     }
 ]

@@ -10,12 +10,12 @@ module.exports = {
         }
 
         const queue = await interaction.client.player.nodes.get(interaction.guild.id);
-        if (!queue) return await interaction.reply("La cola esta vacia negro");
+        if (!queue) return await interaction.reply("La cola esta vacía negro");
 
         const { data } = queue.tracks;
 
         if (!data || data.lenght === 0) {
-            return await interaction.reply("La cola esta vacia negro");
+            return await interaction.reply("La cola esta vacía negro");
         }
 
         await interaction.deferReply();
@@ -25,9 +25,9 @@ module.exports = {
             const songs = [currentTrack, ...data];
             const canciones = songs
                 .slice(0, 10)
-                .map((cancion, i) => {
-                    const { duration, url } = cancion;
-                    const { title } = cancion.raw;
+                .map((s, i) => {
+                    const { duration, url } = s;
+                    const { title } = s.raw;
                     return `${i + 1}. [${title}](${url}) - [${duration}]`;
                 })
                 .join("\n");
@@ -46,7 +46,7 @@ module.exports = {
             });
         } catch (error) {
             console.log(error);
-            return interaction.followUp("Ocurrio un error");
+            return interaction.followUp("Ocurrió un error");
         }
     },
 };

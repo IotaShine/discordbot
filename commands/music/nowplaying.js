@@ -13,7 +13,7 @@ module.exports = {
 
         await interaction.deferReply();
         const queue = await interaction.client.player.nodes.get(interaction.guild.id);
-        if (!queue) return await interaction.followUp("No hay nada sonando, imbecil");
+        if (!queue) return await interaction.followUp("No hay nada sonando, imbécil");
 
         try {
             const { currentTrack } = queue;
@@ -30,7 +30,7 @@ module.exports = {
             });
         } catch (error) {
             console.log(error);
-            return await interaction.followUp("Ocurrio un error al ejecutar el comando");
+            return await interaction.followUp("Ocurrió un error al ejecutar el comando");
         }
     },
 };

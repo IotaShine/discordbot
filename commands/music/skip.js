@@ -3,7 +3,7 @@ const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("skip")
-        .setDescription("skipeo la cancion que esta sonando"),
+        .setDescription("skipeo la canción que esta sonando"),
 
     async execute(interaction) {
         if (!interaction.member.voice.channel) {
@@ -28,7 +28,7 @@ module.exports = {
             });
         } catch (error) {
             console.log(error);
-            return await interaction.followUp("Ocurrio un error");
+            return await interaction.followUp("Ocurrió un error");
         }
     },
 };

@@ -18,7 +18,7 @@ module.exports = {
             );
         } catch (error) {
             console.log(error);
-            return await interaction.reply("Ocurrio un error");
+            return await interaction.reply("Ocurrió un error");
         }
     },
 };
