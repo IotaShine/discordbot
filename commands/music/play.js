@@ -5,7 +5,10 @@ module.exports = {
         .setName("play")
         .setDescription("Me pongo modo DJ y me pongo a cantar")
         .addStringOption(option =>
-            option.setName("cancion").setDescription("canción").setRequired(true),
+            option
+                .setName("cancion")
+                .setDescription("canción")
+                .setRequired(true),
         ),
 
     async execute(interaction) {

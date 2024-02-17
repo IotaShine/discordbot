@@ -6,10 +6,11 @@ const playlistPlay = async (client, user_id, nombre) => {
     const sql = "SELECT * FROM playlists WHERE creator = ? AND nombre = ?";
 
     return new Promise((resolve, reject) => {
-        db.all(sql, [user_id, nombre], (err, rows) => {
-            if (err) reject(err);
+        db.get(sql, [user_id, nombre], (err, row) => {
+            if (err) return reject(err);
+            if (!row || row == undefined) return reject(new Error("No existe una playlist con ese nombre"));
 
-            resolve(rows);
+            resolve(row);
         });
     });
 };
@@ -35,11 +36,11 @@ const play = async (interaction) => {
         const user_id = interaction.user.id;
         const request = await playlistPlay(client, user_id, nombre);
 
-        if (!request) {
+        if (!request || request == undefined) {
             return await interaction.followUp("No existe una playlist con ese nombre");
         }
 
-        const temas = await JSON.parse(request[0].songs);
+        const temas = await JSON.parse(request.songs);
         const playlist = await temas.map(song => new Track(player, { ...song }));
 
         const embed = new EmbedBuilder()
@@ -64,9 +65,7 @@ const play = async (interaction) => {
             embeds: [embed],
         });
     } catch (error) {
-        return interaction.followUp(
-            `Ando mal de la panza y hubo un error :nauseated_face: :\n\`\`\`${error}\`\`\``,
-        );
+        return interaction.followUp(error.message || "Ocurrió un error al intentar reproducir la playlist");
     }
 };
 

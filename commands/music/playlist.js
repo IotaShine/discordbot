@@ -3,6 +3,7 @@ const play = require("../../helpers/music/play");
 const save = require("../../helpers/music/save");
 const list = require("../../helpers/music/list");
 const remove = require("../../helpers/music/remove");
+const add = require("../../helpers/music/add");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -44,6 +45,22 @@ module.exports = {
                         .setDescription("nombre de la playlist")
                         .setRequired(true),
                 ),
+        ).addSubcommand(subcommand =>
+            subcommand
+                .setName("add")
+                .setDescription("agrego una canción a una playlist")
+                .addStringOption(option =>
+                    option
+                        .setName("cancion")
+                        .setDescription("nombre o url de la canción")
+                        .setRequired(true),
+                )
+                .addStringOption(option =>
+                    option
+                        .setName("playlist")
+                        .setDescription("nombre de la playlist")
+                        .setRequired(true),
+                ),
         ),
 
     async execute(interaction) {
@@ -62,6 +79,9 @@ module.exports = {
                 break;
             case "remove":
                 remove(interaction);
+                break;
+            case "add":
+                add(interaction);
                 break;
 
             default:
