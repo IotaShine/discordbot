@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require("discord.js");
 const play = require("../../helpers/music/play");
 const save = require("../../helpers/music/save");
 const list = require("../../helpers/music/list");
-const remove = require("../../helpers/music/delete");
+const remove = require("../../helpers/music/remove");
 
 module.exports = {
     data: new SlashCommandBuilder()

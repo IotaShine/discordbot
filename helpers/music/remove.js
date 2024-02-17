@@ -1,4 +1,4 @@
-const { EmbedBuilder } = require("@discordjs/builders");
+const { EmbedBuilder } = require("discord.js");
 
 const deletePlaylist = async (client, owner, nombre) => {
     const db = client.db;
