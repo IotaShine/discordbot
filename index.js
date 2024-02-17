@@ -7,6 +7,7 @@ require("dotenv").config();
 const { ACTIVITY, STATUS, TOKEN } = process.env;
 const sqlite3 = require("sqlite3").verbose();
 const { createTables } = require("./helpers/config/db.js");
+const shutdownHandler = require("./helpers/config/shutdownHandler.js");
 
 const client = new Client({
     intents: [
@@ -81,6 +82,8 @@ const db = new sqlite3.Database(path.join(__dirname, "database/discordDB.sqlite3
 });
 client.db = db;
 createTables(db);
+
+shutdownHandler(client);
 
 // Login del bot
 client
