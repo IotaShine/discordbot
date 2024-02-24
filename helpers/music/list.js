@@ -2,7 +2,7 @@ const { EmbedBuilder } = require("discord.js");
 
 const requestPlaylists = async (client, user_id) => {
     const db = client.db;
-    const sql = "SELECT * FROM playlists WHERE creator = ?";
+    const sql = "SELECT * FROM playlists WHERE creator = ? ORDER BY playlist_id";
 
     return new Promise((resolve, reject) => {
         db.all(sql, [user_id], (err, rows) => {
