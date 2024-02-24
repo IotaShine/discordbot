@@ -20,7 +20,7 @@ module.exports = {
 
     async execute(interaction) {
         const user = interaction.options.getUser("user");
-        const reason = interaction.options.getString("reason") || "No se especifico.";
+        const reason = interaction.options.getString("reason") || "Sin razón.";
 
         if (!interaction.member.permissions.has("BAN_MEMBERS") && interaction.user.id !== OWNERID) {
             return await interaction.reply("No tenes permisos para banear usuarios.");
