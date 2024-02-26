@@ -1,5 +1,11 @@
 const { EmbedBuilder } = require("discord.js");
 
+/**
+ * Deletes the playlist from the database
+ * @param {Client} client
+ * @param {string} owner
+ * @param {string} nombre
+ */
 const deletePlaylist = async (client, owner, nombre) => {
     const db = client.db;
     const playlistSqlQuery = "DELETE FROM playlists WHERE creator = ? AND nombre = ?";
@@ -17,6 +23,10 @@ const deletePlaylist = async (client, owner, nombre) => {
     });
 };
 
+/**
+ * Handles the discord interaction of removing a playlist
+ * @param {CommandInteraction} interaction
+ */
 const remove = async (interaction) => {
     try {
         const { client } = interaction;

@@ -3,6 +3,10 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName("leave")
         .setDescription("Me desconecto del canal de voz."),
+
+    /** Leaves the voice channel
+    * @param {CommandInteraction} interaction
+    */
     async execute(interaction) {
         if (!interaction.member.voice.channel) {
             return await interaction.reply("No estas en un canal de voz salame");

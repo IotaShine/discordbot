@@ -10,6 +10,9 @@ module.exports = {
                 .setDescription("The user you want the avatar")
                 .setRequired(true),
         ),
+    /** Retrieves the avatar of the target user
+     * @param {CommandInteraction} interaction
+     */
     async execute(interaction) {
         try {
             await interaction.reply(

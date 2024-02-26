@@ -11,6 +11,9 @@ module.exports = {
                 .setRequired(true),
         ),
 
+    /** Plays a song
+    * @param {CommandInteraction} interaction
+    */
     async execute(interaction) {
         if (!interaction.member.voice.channel) {
             await interaction.reply("No estas en un canal de voz salame");

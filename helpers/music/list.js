@@ -1,5 +1,10 @@
 const { EmbedBuilder } = require("discord.js");
 
+/** 
+ * Requests the playlists from the database
+ * @param {Client} client
+ * @param {string} user_id
+ */
 const requestPlaylists = async (client, user_id) => {
     const db = client.db;
     const sql = "SELECT * FROM playlists WHERE creator = ? ORDER BY playlist_id";
@@ -13,7 +18,10 @@ const requestPlaylists = async (client, user_id) => {
     });
 };
 
-
+/**
+ * Handles the discord interaction of listing the playlists
+ * @param {CommandInteraction} interaction
+ */
 const list = async (interaction) => {
     await interaction.deferReply();
     try {

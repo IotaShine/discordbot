@@ -5,6 +5,9 @@ module.exports = {
         .setName("resume")
         .setDescription("le doy play de vuelta a la música"),
 
+    /** Resumes the current track
+    * @param {CommandInteraction} interaction
+    */
     async execute(interaction) {
         if (!interaction.member.voice.channel) {
             return await interaction.reply("No estas en un canal de voz salame");

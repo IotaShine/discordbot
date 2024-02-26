@@ -8,6 +8,9 @@ module.exports = {
             return await interaction.reply("No estas en un canal de voz salame");
         }
 
+        /** Pauses the current track
+        * @param {CommandInteraction} interaction
+        */
         await interaction.deferReply();
         try {
             const { node, currentTrack } = await interaction.client.player.nodes.get(

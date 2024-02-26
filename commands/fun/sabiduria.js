@@ -6,6 +6,9 @@ module.exports = {
         .setName("sabiduría")
         .setDescription("Sabiduría"),
 
+    /** Sends a random escritura
+    * @param {CommandInteraction} interaction
+    */
     async execute(interaction) {
         const escritura = escrituras[Math.floor(Math.random() * escrituras.length)];
         const embed = new EmbedBuilder()

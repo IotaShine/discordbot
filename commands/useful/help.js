@@ -4,42 +4,43 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName("help")
         .setDescription("Te tiro la data de mis comandos"),
+    /** Sends a list of the commands
+     * @param {CommandInteraction} interaction
+     */
     async execute(interaction) {
         try {
             const { commands, user } = interaction.client;
             await interaction.deferReply();
-            return await interaction.followUp({
-                embeds: [
-                    new EmbedBuilder()
-                        .setAuthor({
-                            name: user.username,
-                            iconURL: user.avatarURL({
-                                extension: "png",
-                                size: 128,
-                            }),
-                        })
-                        .setColor("Blue")
-                        .setDescription(
-                            commands
-                                .sort((a, b) => {
-                                    if (a.data.name > b.data.name) {
-                                        return 1;
-                                    }
-                                    if (a.data.name < b.data.name) {
-                                        return -1;
-                                    }
-                                    return 0;
-                                })
-                                .map(command => {
-                                    return `**[ /${command.data.name} ]** - ${command.data.description}`;
-                                })
-                                .join("\n"),
-                        ),
-                ],
-            });
+
+            const author = {
+                name: user.username,
+                iconURL: user.avatarURL({
+                    extension: "png",
+                    size: 128,
+                }),
+            };
+            const description = makeDescription(commands);
+            const embed = new EmbedBuilder()
+                .setAuthor(author)
+                .setColor("Blue")
+                .setDescription(description);
+
+            return await interaction.followUp({ embeds: [embed] });
         } catch (error) {
             console.log(error);
-            await interaction.reply("Ocurrio un error");
+            await interaction.reply("Ocurrió un error");
         }
     },
 };
+
+function sortCommands(a, b) {
+    if (a.data.name > b.data.name) return 1;
+    if (a.data.name < b.data.name) return -1;
+    return 0;
+}
+
+function makeDescription(commands) {
+    return commands.sort(sortCommands).map(command => {
+        return `**[ /${command.data.name} ]** - ${command.data.description}`;
+    }).join("\n");
+}

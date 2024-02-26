@@ -1,6 +1,12 @@
 const { EmbedBuilder } = require("discord.js");
 const { Track } = require("discord-player");
 
+/**
+ * Retrieves the playlist from the database
+ * @param {Client} client
+ * @param {string} user_id
+ * @param {string} nombre
+ */
 const playlistPlay = async (client, user_id, nombre) => {
     const db = client.db;
     const sql = "SELECT * FROM playlists WHERE creator = ? AND nombre = ?";
@@ -15,6 +21,10 @@ const playlistPlay = async (client, user_id, nombre) => {
     });
 };
 
+/**
+* Handles the discord interaction of playing a playlist
+* @param {CommandInteraction} interaction
+*/
 const play = async (interaction) => {
     if (!interaction.member.voice.channel) {
         return await interaction.reply("No estas en un canal de voz salame");

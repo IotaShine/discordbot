@@ -1,3 +1,6 @@
+/** Agrega un hook al evento de shutdown para cerrar la base de datos y desloguearse
+ * @param {Client} client 
+ */
 function shutdownHandler(client) {
     function gracefulShutdown() {
         console.log("Shutting down gracefully...");

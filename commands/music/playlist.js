@@ -63,6 +63,9 @@ module.exports = {
                 ),
         ),
 
+    /**
+     * @param {CommandInteraction} interaction
+     */
     async execute(interaction) {
         const command = await interaction.options.getSubcommand();
         const guild = await interaction.guild.id;

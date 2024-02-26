@@ -14,7 +14,7 @@ module.exports = {
 
         const { data } = queue.tracks;
 
-        if (!data || data.lenght === 0) {
+        if (!data || data.length === 0) {
             return await interaction.reply("La cola esta vacía negro");
         }
 

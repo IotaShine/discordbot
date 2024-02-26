@@ -4,6 +4,9 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName("invite")
         .setDescription("comando para invitarme a otros servers"),
+    /** Sends the invite link
+    * @param {CommandInteraction} interaction
+    */
     async execute(interaction) {
         try {
             await interaction.reply(
@@ -11,7 +14,7 @@ module.exports = {
             );
         } catch (error) {
             console.log(error);
-            return await interaction.reply("Ocurrio un pequeño errorcito");
+            return await interaction.reply("Ocurrió un pequeño errorcito");
         }
     },
 };

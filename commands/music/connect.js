@@ -3,6 +3,10 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName("connect")
         .setDescription("Me conecto al canal en el que estas vos."),
+
+    /** Connects to the voice channel
+    * @param {CommandInteraction} interaction
+    */
     async execute(interaction) {
         if (!interaction.member.voice.channel) {
             return await interaction.reply("No estas en un canal de voz salame");

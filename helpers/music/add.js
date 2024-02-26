@@ -1,5 +1,12 @@
 const { EmbedBuilder } = require("discord.js");
 
+/** 
+ * Adds a song to a playlist
+ * @param {Client} client
+ * @param {string} owner
+ * @param {string} nombre
+ * @param {string} cancion
+ */
 const addToPlaylist = async (client, owner, nombre, cancion) => {
     const db = client.db;
     const playlistSqlQuery = "SELECT songs FROM playlists WHERE creator = ? AND nombre = ?";
@@ -21,6 +28,9 @@ const addToPlaylist = async (client, owner, nombre, cancion) => {
     });
 };
 
+/** Handles the discord interaction of adding a song to a playlist
+ * @param {CommandInteraction} interaction
+ */
 const add = async (interaction) => {
     try {
         const { client } = interaction;

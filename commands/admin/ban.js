@@ -18,6 +18,9 @@ module.exports = {
                 .setDescription("La razón por la que queres banear al usuario."),
         ),
 
+    /** Bans a user
+    * @param {CommandInteraction} interaction
+    */
     async execute(interaction) {
         const user = interaction.options.getUser("user");
         const reason = interaction.options.getString("reason") || "Sin razón.";

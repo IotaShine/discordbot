@@ -9,6 +9,9 @@ module.exports = {
             .setRequired(true),
         ),
 
+    /** Sends a random image from r34 api
+    * @param {CommandInteraction} interaction
+    */
     async execute(interaction) {
         await interaction.deferReply();
         const character = interaction.options.getString("personaje");

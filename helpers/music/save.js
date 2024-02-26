@@ -1,5 +1,12 @@
 const { EmbedBuilder } = require("discord.js");
 
+/**
+ * Creates a playlist in the database
+ * @param {Client} client
+ * @param {Track[]} tracks
+ * @param {string} owner
+ * @param {string} nombre
+ */
 const createPlaylist = async (client, tracks, owner, nombre) => {
     const db = client.db;
     const userSqlQuery = "INSERT INTO users (user_id) VALUES(?) ON CONFLICT(user_id) DO NOTHING";
@@ -29,6 +36,11 @@ const createPlaylist = async (client, tracks, owner, nombre) => {
 
 };
 
+/**
+ * Handles the discord interaction of saving the current queue
+ * @param {CommandInteraction} interaction
+ * @param {Guild} guild
+ */
 const save = async (interaction, guild) => {
     if (!interaction.member.voice.channel) {
         return await interaction.reply("No estas en un canal de voz salame");

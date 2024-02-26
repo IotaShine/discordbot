@@ -12,13 +12,16 @@ const playlistsTableQuery = `CREATE TABLE IF NOT EXISTS playlists (
     UNIQUE(creator, nombre)
   )`;
 
+/** 
+ * Create the tables in the database
+ * @param {Database} db
+ */
 const createTables = (db) => {
     db.serialize(() => {
         db.run(guildsTableQuery);
         db.run(usersTableQuery);
         db.run(playlistsTableQuery);
     });
-
 };
 
 

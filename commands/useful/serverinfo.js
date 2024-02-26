@@ -4,6 +4,9 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName("serverinfo")
         .setDescription("te tiro la data sobre el server este"),
+    /** Sends the server info
+    * @param {CommandInteraction} interaction
+    */
     async execute(interaction) {
 
         const { guild } = interaction;

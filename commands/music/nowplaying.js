@@ -5,6 +5,10 @@ module.exports = {
         .setName("nowplaying")
         .setDescription("que pija estas escuchando"),
 
+
+    /** Sends the current track
+    * @param {CommandInteraction} interaction
+    */
     async execute(interaction) {
         if (!interaction.member.voice.channel) {
             await interaction.reply("No estas en un canal de voz salame");
