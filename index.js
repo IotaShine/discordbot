@@ -6,8 +6,8 @@ const { YoutubeExtractor } = require("@discord-player/extractor");
 require("dotenv").config();
 const { ACTIVITY, STATUS, TOKEN } = process.env;
 const sqlite3 = require("sqlite3").verbose();
-const { createTables } = require("./helpers/config/db.js");
-const shutdownHandler = require("./helpers/config/shutdownHandler.js");
+const { createTables, shutdownHandler } = require("./helpers/config");
+const { globalUpdate } = require("./deploy-commands-global");
 
 const client = new Client({
     intents: [
@@ -69,6 +69,9 @@ client.player = new Player(client, {
         highWaterMark: 1 << 25,
     },
 });
+
+// Actualizamos los comandos globales
+globalUpdate();
 
 client.player.extractors.register(YoutubeExtractor, {});
 

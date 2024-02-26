@@ -31,7 +31,7 @@ for (const folder of commandFolders) {
 
 const rest = new REST().setToken(TOKEN);
 
-(async () => {
+async function globalUpdate() {
     try {
         console.log(
             `Started refreshing ${commands.length} application (/) commands.`,
@@ -47,4 +47,8 @@ const rest = new REST().setToken(TOKEN);
     } catch (error) {
         console.error(error);
     }
-})();
+}
+
+globalUpdate();
+
+module.exports = { globalUpdate };
