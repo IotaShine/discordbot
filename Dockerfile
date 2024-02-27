@@ -1,4 +1,4 @@
-FROM node:21-slim
+FROM node:21-bookworm-slim
 RUN apt-get update && apt-get install -y ffmpeg python3 python3-pip
 
 RUN mkdir /bot
