@@ -61,6 +61,7 @@ for (const file of eventFiles) {
     }
 }
 
+// TODO - Cambiar esto https://discord-player.js.org/guide/faq/how-to-access-player
 /** Agregamos el reproductor de música */
 client.player = new Player(client, {
     ytdlOptions: {
@@ -102,3 +103,6 @@ client
         console.log("There was an error while logging in");
         process.exit(1);
     });
+
+// TODO - Cambiar ffmpeg-static por el ejecutable
+// https://discord-player.js.org/guide/faq/common-errors
