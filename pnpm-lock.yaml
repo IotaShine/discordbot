@@ -11,6 +11,9 @@ dependencies:
   discord-player:
     specifier: ^6.6.2
     version: 6.6.7(@discord-player/extractor@4.4.6)
+  discord-voip:
+    specifier: ^0.1.3
+    version: 0.1.3
   discord.js:
     specifier: ^14.12.1
     version: 14.14.1
