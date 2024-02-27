@@ -31,24 +31,19 @@ for (const folder of commandFolders) {
 
 const rest = new REST().setToken(TOKEN);
 
-async function globalUpdate() {
+(async () => {
     try {
         console.log(
             `Started refreshing ${commands.length} application (/) commands.`,
         );
-
         const data = await rest.put(Routes.applicationCommands(CLIENT_ID), {
             body: commands,
         });
-
         console.log(
             `Successfully reloaded ${data.length} application (/) commands.`,
         );
     } catch (error) {
         console.error(error);
     }
-}
+})();
 
-globalUpdate();
-
-module.exports = { globalUpdate };

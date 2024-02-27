@@ -7,7 +7,6 @@ require("dotenv").config();
 const { ACTIVITY, STATUS, TOKEN } = process.env;
 const sqlite3 = require("sqlite3").verbose();
 const { createTables, shutdownHandler } = require("./helpers/config");
-const { globalUpdate } = require("./deploy-commands-global");
 
 const client = new Client({
     intents: [
@@ -61,7 +60,6 @@ for (const file of eventFiles) {
     }
 }
 
-// TODO - Cambiar esto https://discord-player.js.org/guide/faq/how-to-access-player
 /** Agregamos el reproductor de música */
 const player = new Player(client, {
     ytdlOptions: {
@@ -70,10 +68,6 @@ const player = new Player(client, {
     },
 });
 player.extractors.register(YoutubeExtractor, {});
-
-/** Actualizamos los comandos globales */
-globalUpdate();
-
 
 /** Inicializamos y agregamos la base de datos */
 const db = new sqlite3.Database(path.join(__dirname, "database/discordDB.sqlite3"), err => {
