@@ -19,4 +19,4 @@ ENV ACTIVITY=$ACTIVITY
 ENV STATUS=$STATUS
 ENV OWNERID=$OWNERID
 
-CMD [ "/bot/index.js" ]
+CMD /bin/sh -c "npm run refresh-global && npm run bot"
