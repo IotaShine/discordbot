@@ -19,4 +19,6 @@ ENV ACTIVITY=$ACTIVITY
 ENV STATUS=$STATUS
 ENV OWNERID=$OWNERID
 
+RUN apt remove -y python3-pip python3
+
 CMD /bin/sh -c "npm run refresh-global && npm run bot"
