@@ -16,18 +16,15 @@ module.exports = {
     * @param {CommandInteraction} interaction
     */
     async execute(interaction) {
-        if (!interaction.member.voice.channel) {
-            await interaction.reply("No estas en un canal de voz salame");
-            return;
-        }
+        const channel = interaction.member.voice.channel;
+        if (!channel) return await interaction.reply("No estas en un canal de voz salame");
+        const query = interaction.options.getString("cancion");
+        const player = useMainPlayer();
 
         await interaction.deferReply();
 
         try {
-
-            const request = interaction.options.getString("cancion");
-            const player = useMainPlayer();
-            const { track } = await player.play(interaction.member.voice.channel, request);
+            const { track } = await player.play(interaction.member.voice.channel, query);
 
             const embed = new EmbedBuilder();
             embed.setColor("Red");
@@ -50,9 +47,8 @@ module.exports = {
 
             return interaction.followUp({ embeds: [embed] });
         } catch (error) {
-            return interaction.followUp(
-                `Ando mal de la panza y hubo un error :nauseated_face: :\n\`\`\`${error}\`\`\``,
-            );
+            console.error(error);
+            return interaction.followUp("Ando mal de la panza y hubo un error :nauseated_face:");
         }
     },
 };

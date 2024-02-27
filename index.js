@@ -62,10 +62,8 @@ for (const file of eventFiles) {
 
 /** Agregamos el reproductor de música */
 const player = new Player(client, {
-    ytdlOptions: {
-        quality: "highestaudio",
-        highWaterMark: 1 << 25,
-    },
+    skipFFmpeg: true,
+    connectionTimeout: 60000,
 });
 player.extractors.register(YoutubeExtractor, {});
 

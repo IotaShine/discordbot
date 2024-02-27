@@ -14,6 +14,7 @@ module.exports = {
             return await interaction.reply("No estas en un canal de voz salame");
         }
 
+        // TODO - Fix error when skipping, it should show the next song only if there is one
         await interaction.deferReply();
         try {
             const queue = useQueue(interaction.guild.id);
