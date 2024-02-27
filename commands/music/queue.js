@@ -10,7 +10,7 @@ module.exports = {
             return;
         }
 
-        const queue = await interaction.client.player.nodes.get(interaction.guild.id);
+        const queue = useQueue(interaction.guild.id);
         if (!queue) return await interaction.reply("La cola esta vacía negro");
 
         const { data } = queue.tracks;

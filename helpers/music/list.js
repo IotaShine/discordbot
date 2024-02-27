@@ -44,6 +44,7 @@ const list = async (interaction) => {
             extension: "png",
             size: 128,
         });
+
         return await interaction.followUp({
             embeds: [
                 new EmbedBuilder()

@@ -1,4 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
+const { useQueue } = require("discord-player");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -15,11 +16,10 @@ module.exports = {
 
         await interaction.deferReply();
         try {
-            const { node, currentTrack } = await interaction.client.player.nodes.get(
-                interaction.guild.id,
-            );
+            const queue = useQueue(interaction.guild.id);
+            const { currentTrack, node } = queue;
+            node.setPaused(false);
 
-            await node.resume();
             return await interaction.followUp({
                 embeds: [
                     new EmbedBuilder()

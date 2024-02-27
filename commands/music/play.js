@@ -1,4 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
+const { useQueue } = require("discord-player");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -20,10 +21,7 @@ module.exports = {
             return;
         }
 
-        const { player } = interaction.client;
-
-        const queue = await player.queues.create(interaction.guild);
-
+        const queue = useQueue(interaction.guild);
         if (!queue.connection) {
             await queue.connect(interaction.member.voice.channel);
         }

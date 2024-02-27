@@ -1,3 +1,4 @@
+const { useMainPlayer } = require("discord-player");
 const { EmbedBuilder } = require("discord.js");
 
 /** 
@@ -34,7 +35,7 @@ const addToPlaylist = async (client, owner, nombre, cancion) => {
 const add = async (interaction) => {
     try {
         const { client } = interaction;
-        const { player } = client;
+        const player = useMainPlayer();
 
         const cancion = await interaction.options.getString("cancion");
         const playlist = await interaction.options.getString("playlist");

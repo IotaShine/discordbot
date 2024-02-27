@@ -21,7 +21,7 @@ module.exports = {
             return;
         }
 
-        const { player } = interaction.client;
+        const player = useMainPlayer();
         const queue = useQueue(interaction.guild.id);
 
         if (!queue.connection) {

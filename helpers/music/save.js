@@ -1,3 +1,4 @@
+const { useQueue } = require("discord-player");
 const { EmbedBuilder } = require("discord.js");
 
 /**
@@ -47,8 +48,9 @@ const save = async (interaction, guild) => {
     }
 
     try {
-        const queue = await interaction.client.player.nodes.get(guild);
-        if (!queue) await interaction.reply("No hay nada sonando master");
+        const queue = useQueue(guild);
+        if (!queue) return await interaction.reply("No hay nada sonando master", { ephemeral: true });
+
         await interaction.deferReply({ ephemeral: true });
         const nombre = await interaction.options.getString("nombre");
 

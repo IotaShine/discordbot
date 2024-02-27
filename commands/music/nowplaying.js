@@ -1,4 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
+const { useQueue } = require("discord-player");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -16,12 +17,13 @@ module.exports = {
         }
 
         await interaction.deferReply();
-        const queue = await interaction.client.player.nodes.get(interaction.guild.id);
+        const queue = useQueue(interaction.guild.id);
         if (!queue) return await interaction.followUp("No hay nada sonando, imbécil");
 
         try {
             const { currentTrack } = queue;
-            if (!currentTrack) throw new Error();
+            if (!currentTrack) throw new Error("Now playing track not found");
+
             return await interaction.followUp({
                 embeds: [
                     new EmbedBuilder()

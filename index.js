@@ -63,13 +63,13 @@ for (const file of eventFiles) {
 
 // TODO - Cambiar esto https://discord-player.js.org/guide/faq/how-to-access-player
 /** Agregamos el reproductor de música */
-client.player = new Player(client, {
+const player = new Player(client, {
     ytdlOptions: {
         quality: "highestaudio",
         highWaterMark: 1 << 25,
     },
 });
-client.player.extractors.register(YoutubeExtractor, {});
+player.extractors.register(YoutubeExtractor, {});
 
 /** Actualizamos los comandos globales */
 globalUpdate();

@@ -1,5 +1,6 @@
 const { EmbedBuilder } = require("discord.js");
 const { Track } = require("discord-player");
+const { useMainPlayer } = require("discord-player");
 
 /**
  * Retrieves the playlist from the database
@@ -30,9 +31,9 @@ const play = async (interaction) => {
         return await interaction.reply("No estas en un canal de voz salame");
     }
 
-    const { player } = interaction.client;
+    const player = useMainPlayer();
 
-    const queue = await player.queues.create(interaction.guild);
+    const queue = player.queues.create(interaction.guild);
 
     if (!queue.connection) {
         await queue.connect(interaction.member.voice.channel);

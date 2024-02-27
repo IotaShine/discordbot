@@ -1,4 +1,6 @@
 const { SlashCommandBuilder } = require("discord.js");
+const { useQueue } = require("discord-player");
+
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("leave")
@@ -13,10 +15,10 @@ module.exports = {
         }
 
         try {
-            const queue = await interaction.client.player.nodes.get(interaction.guild.id);
+            const queue = useQueue(interaction.guild.id);
             if (!queue) return await interaction.reply("Que haces bobo");
 
-            await queue.connection.destroy();
+            queue.connection.destroy();
             return await interaction.reply(
                 `Desconectado de ${interaction.member.voice.channel}`,
             );

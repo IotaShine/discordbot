@@ -15,7 +15,6 @@ module.exports = {
         }
 
         const queue = useQueue(interaction.guild.id);
-
         if (queue.size < 1) {
             return await interaction.reply("No hay suficientes canciones en la cola");
         }
