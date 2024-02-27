@@ -65,6 +65,16 @@ STATUS=
 OWNERID=" > .env
 ```
 
+Make sure to have ffmpeg installed in your machine:
+
+```bash
+# Ubuntu
+sudo apt install ffmpeg
+# In windows you can use chocolatey or winget
+choco install ffmpeg
+winget install Gyan.FFmpeg
+```
+
 Then you'll need to fill in the `.env` file with your bot token, client ID, guild ID, activity, status, and owner ID.
 
 Refresh the commands with:

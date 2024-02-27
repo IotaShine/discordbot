@@ -10,7 +10,7 @@ COPY ./events events/
 COPY ./helpers helpers/
 COPY index.js package.json deploy-commands-global.js ./
 
-RUN npm install --omit=dev
+RUN npm ci --omit=dev
 
 ENV TOKEN=$TOKEN
 ENV CLIENT_ID=$CLIENT_ID
