@@ -14,7 +14,6 @@ module.exports = {
             return await interaction.reply("No estas en un canal de voz salame");
         }
 
-        // TODO - Fix error when skipping, it should show the next song only if there is one
         await interaction.deferReply();
         try {
             const queue = useQueue(interaction.guild.id);
@@ -22,15 +21,16 @@ module.exports = {
 
             const { node, currentTrack, tracks } = queue;
             const nextTrack = tracks.data[0];
+            const description = nextTrack ? `**[${nextTrack.raw.title}]** va a sonar ahora` : "No hay mas canciones en la lista";
             await node.skip();
 
             return await interaction.followUp({
                 embeds: [
                     new EmbedBuilder()
-                        .setTitle(`Skipeando **[${currentTrack.raw.title}]** ⏭`)
+                        .setTitle(`Skipeando ⏭ **[${currentTrack.raw.title}]**`)
                         .setColor("Random")
-                        .setDescription(`**[${nextTrack.raw.title}]** va a sonar ahora`)
-                        .setThumbnail(nextTrack.thumbnail),
+                        .setDescription(description)
+                        .setThumbnail(nextTrack?.thumbnail ?? currentTrack.thumbnail),
                 ],
             });
         } catch (error) {
