@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
-const { useQueue } = require("discord-player");
+const { useMainPlayer } = require("discord-player");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -21,16 +21,13 @@ module.exports = {
             return;
         }
 
-        const queue = useQueue(interaction.guild);
-        if (!queue.connection) {
-            await queue.connect(interaction.member.voice.channel);
-        }
-
         await interaction.deferReply();
 
         try {
+
             const request = interaction.options.getString("cancion");
-            const { track } = await queue.play(request);
+            const player = useMainPlayer();
+            const { track } = await player.play(interaction.member.voice.channel, request);
 
             const embed = new EmbedBuilder();
             embed.setColor("Red");
