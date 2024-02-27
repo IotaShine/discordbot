@@ -1,5 +1,5 @@
 FROM node:21-bookworm-slim
-RUN apt-get update && apt-get install -y ffmpeg python3 python3-pip
+RUN apt-get update && apt-get install -y ffmpeg
 
 RUN mkdir /bot
 RUN mkdir -p /bot/database
@@ -19,6 +19,6 @@ ENV ACTIVITY=$ACTIVITY
 ENV STATUS=$STATUS
 ENV OWNERID=$OWNERID
 
-RUN apt remove -y python3-pip python3
+RUN rm -rf /var/cache/apt/* /tmp/* 
 
 CMD /bin/sh -c "npm run refresh-global && npm run bot"
