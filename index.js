@@ -97,6 +97,3 @@ client
         console.log("There was an error while logging in");
         process.exit(1);
     });
-
-// TODO - Cambiar ffmpeg-static por el ejecutable
-// https://discord-player.js.org/guide/faq/common-errors
