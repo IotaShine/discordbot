@@ -18,7 +18,8 @@ To get started with this bot, you can either pull the image and run it with Dock
 docker run -d \
   --name discordbot \
   --restart unless-stopped \
-  -v [path to store the database]:/bot/database \
+  -v path-to-store-the-database:/bot/database \
+  -v path-to-store-the-logs:/bot/logs \
   -e TOKEN=${TOKEN} \
   -e CLIENT_ID=${CLIENT_ID} \
   -e GUILD_ID=${GUILD_ID} \
@@ -31,21 +32,24 @@ docker run -d \
 Or you can use docker compose:
 
 ```yml
-version: '3'
+version: "3"
 services:
-  thanujica:
-    container_name: discordbot
-    image: ghcr.io/iotashine/discordbot:main
-    restart: unless-stopped
-    volumes:
-      - [path to store the database]:/bot/database
-    environment:
-      - TOKEN=${TOKEN}
-      - CLIENT_ID=${CLIENT_ID}
-      - GUILD_ID=${GUILD_ID}
-      - ACTIVITY=${ACTIVITY}
-      - STATUS=${STATUS}
-      - OWNERID=${OWNERID}
+    thanujica:
+        container_name: discordbot
+        image: ghcr.io/iotashine/discordbot:main
+        restart: unless-stopped
+        volumes:
+            # Important for persistence
+            - /path/to/store/database:/bot/database
+            # Optional but recommended
+            - /path/to/store/logs:/bot/logs
+        environment:
+            - TOKEN=${TOKEN}
+            - CLIENT_ID=${CLIENT_ID}
+            - GUILD_ID=${GUILD_ID}
+            - ACTIVITY=${ACTIVITY}
+            - STATUS=${STATUS}
+            - OWNERID=${OWNERID}
 ```
 
 ### Locally

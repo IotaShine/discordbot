@@ -1,15 +1,18 @@
-version: '3'
+version: "3"
 services:
-  thanujica:
-    container_name: discordbot
-    image: iotashine/discordbot
-    restart: unless-stopped
-    volumes:
-      - /home/iota/bot:/bot/database
-    environment:
-      - TOKEN=${TOKEN}
-      - CLIENT_ID=${CLIENT_ID}
-      - GUILD_ID=${GUILD_ID}
-      - ACTIVITY=${ACTIVITY}
-      - STATUS=${STATUS}
-      - OWNERID=${OWNERID}
+    thanujica:
+        container_name: discordbot
+        image: ghcr.io/iotashine/discordbot:main
+        restart: unless-stopped
+        volumes:
+            # Important for persistence
+            - /path/to/store/database:/bot/database
+            # Optional but recommended
+            - /path/to/store/logs:/bot/logs
+        environment:
+            - TOKEN=${TOKEN}
+            - CLIENT_ID=${CLIENT_ID}
+            - GUILD_ID=${GUILD_ID}
+            - ACTIVITY=${ACTIVITY}
+            - STATUS=${STATUS}
+            - OWNERID=${OWNERID}
