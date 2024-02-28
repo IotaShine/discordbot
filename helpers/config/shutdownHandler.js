@@ -25,6 +25,8 @@ function shutdownHandler(client) {
     // Listen for shutdown signals
     process.on("SIGINT", gracefulShutdown);
     process.on("SIGTERM", gracefulShutdown);
+    process.on("SIGKILL", gracefulShutdown);
+    process.on("beforeExit", gracefulShutdown);
 }
 
 module.exports = shutdownHandler;
