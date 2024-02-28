@@ -9,17 +9,13 @@ module.exports = {
      * @param {CommandInteraction} interaction
      */
     async execute(interaction) {
-        if (!interaction.member.voice.channel) {
-            await interaction.reply("No estas en un canal de voz salame");
-            return;
-        }
+        if (!interaction.member.voice.channel) return await interaction.reply("No estas en un canal de voz salame");
 
         const queue = useQueue(interaction.guild.id);
-        if (queue.size < 1) {
-            return await interaction.reply("No hay suficientes canciones en la cola");
-        }
+        if (queue.size < 2) return await interaction.reply("No hay suficientes canciones en la cola");
 
         queue.tracks.shuffle();
+
         const embed = new EmbedBuilder()
             .setColor("Red")
             .setTitle("Cola mezclada")
