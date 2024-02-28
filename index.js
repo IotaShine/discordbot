@@ -89,13 +89,18 @@ createTables(db);
 
 shutdownHandler(client);
 
+if (!TOKEN) {
+    logger.fatal("No token was provided, please provide one in the .env file.");
+    process.exit(1);
+}
+
 /** Login del bot */
 client
     .login(TOKEN)
     .then(() => {
         client.user.setPresence({
-            activities: [{ name: ACTIVITY }],
-            status: STATUS,
+            activities: [{ name: ACTIVITY || "with your feelings" }],
+            status: STATUS || "online",
         });
         logger.info("Bot description status changed");
     })

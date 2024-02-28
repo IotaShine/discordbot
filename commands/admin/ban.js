@@ -26,7 +26,9 @@ module.exports = {
         const user = interaction.options.getUser("user");
         const reason = interaction.options.getString("reason") || "que si.";
 
-        if (!interaction.member.permissions.has("BAN_MEMBERS") && interaction.user.id !== OWNERID) {
+        const owner = OWNERID ?? "-7";
+
+        if (!interaction.member.permissions.has("BAN_MEMBERS") && interaction.user.id !== owner) {
             return await interaction.reply("No tenes permisos para banear usuarios.");
         }
 
@@ -38,7 +40,7 @@ module.exports = {
             return await interaction.reply("No me podes banear a mi.");
         }
 
-        if (user.id === OWNERID) {
+        if (user.id === owner) {
             return await interaction.reply("No te hagas el piola, no podes banear al dueño del bot.");
         }
 

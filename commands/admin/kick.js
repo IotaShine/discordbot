@@ -26,7 +26,9 @@ module.exports = {
         const user = interaction.options.getUser("user");
         const reason = interaction.options.getString("reason") || "No se especifico.";
 
-        if (!interaction.member.permissions.has("KICK_MEMBERS") && interaction.user.id !== OWNERID) {
+        const owner = OWNERID ?? "-7";
+
+        if (!interaction.member.permissions.has("KICK_MEMBERS") && interaction.user.id !== owner) {
             return await interaction.reply("No tenes permisos para expulsar usuarios.");
         }
 
@@ -38,7 +40,7 @@ module.exports = {
             return await interaction.reply("No me podes expulsar a mi.");
         }
 
-        if (user.id === OWNERID) {
+        if (user.id === owner) {
             return await interaction.reply("No te hagas el piola, no podes expulsar al dueño del bot.");
         }
 
