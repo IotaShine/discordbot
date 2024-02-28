@@ -8,7 +8,8 @@
         "refresh": "node ./deploy-commands.js",
         "refresh-global": "node ./deploy-commands-global.js",
         "erase": "node ./remove-commands.js",
-        "erase-global": "node ./remove-commands-global.js"
+        "erase-global": "node ./remove-commands-global.js",
+        "dev": "nodemon index.js"
     },
     "author": "IotaShine",
     "license": "MIT",
@@ -24,6 +25,7 @@
     },
     "devDependencies": {
         "@types/node": "^20.11.21",
-        "eslint": "^8.57.0"
+        "eslint": "^8.57.0",
+        "nodemon": "^3.1.0"
     }
 }
