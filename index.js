@@ -66,6 +66,10 @@ const player = new Player(client, {
 });
 player.extractors.register(YoutubeExtractor, {});
 
+player.on("error", (queue, error) => {
+    console.log(`Error en la cola ${queue.guild.id}: ${error.message}`);
+});
+
 /** Inicializamos y agregamos la base de datos */
 const db = new sqlite3.Database(path.join(__dirname, "database/discordDB.sqlite3"), err => {
     if (err) {
