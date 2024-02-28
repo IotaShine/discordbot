@@ -1,4 +1,5 @@
 const { Events } = require("discord.js");
+const logger = require("../helpers/config/logger");
 
 module.exports = {
     name: Events.ClientReady,
@@ -7,6 +8,6 @@ module.exports = {
      * @param {Client} client
      */
     execute(client) {
-        console.log(`Bot ready, Logged in as ${client.user.tag}`);
+        logger.info(`Bot ready, Logged in as ${client.user.tag}`);
     },
 };

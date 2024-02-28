@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require("discord.js");
 require("dotenv").config();
 const { OWNERID } = process.env;
+const logger = require("../../helpers/config/logger");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -23,7 +24,7 @@ module.exports = {
     */
     async execute(interaction) {
         const user = interaction.options.getUser("user");
-        const reason = interaction.options.getString("reason") || "Sin razón.";
+        const reason = interaction.options.getString("reason") || "que si.";
 
         if (!interaction.member.permissions.has("BAN_MEMBERS") && interaction.user.id !== OWNERID) {
             return await interaction.reply("No tenes permisos para banear usuarios.");
@@ -49,7 +50,7 @@ module.exports = {
             await user.ban({ reason });
             return await interaction.reply(`Baneado a ${user.tag} por ${reason}`);
         } catch (error) {
-            console.log(error);
+            logger.error(error, "Error in ban command");
             return await interaction.reply("Ocurrió un error");
         }
     },

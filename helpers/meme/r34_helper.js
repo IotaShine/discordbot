@@ -1,3 +1,5 @@
+const logger = require("../config/logger");
+
 const limit = 500;
 /** Fetches a random image from rule34 api
  * @param {string} tags
@@ -8,9 +10,8 @@ const r34Helper = async (tags) => {
     return new Promise((resolve, reject) => {
         fetch(url)
             .then((response) => {
-                if (!response.ok) {
-                    throw new Error("Response was not ok");
-                }
+                if (!response.ok) throw new Error("Response was not ok");
+
                 return response.json();
             })
             .then((data) => {
@@ -20,7 +21,7 @@ const r34Helper = async (tags) => {
                 resolve(image);
             })
             .catch((error) => {
-                console.log(error);
+                logger.error(error, "Error fetching r34 image");
                 reject("Hubo un error");
             });
     });

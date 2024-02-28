@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require("discord.js");
 require("dotenv").config();
 const { OWNERID } = process.env;
+const logger = require("../../helpers/config/logger");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -49,7 +50,7 @@ module.exports = {
             await user.kick(reason);
             return await interaction.reply(`Expulsado a ${user.tag} por ${reason}`);
         } catch (error) {
-            console.log(error);
+            logger.error(error, "Error in kick command");
             return await interaction.reply("Ocurrió un error");
         }
     },

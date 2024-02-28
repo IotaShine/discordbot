@@ -1,5 +1,7 @@
 const { SlashCommandBuilder } = require("discord.js");
 const r34Helper = require("../../helpers/meme/r34_helper");
+const logger = require("../../helpers/config/logger");
+
 module.exports = {
     data: new SlashCommandBuilder().setName("r34")
         .setDescription("ruleta de r34 del personaje deseado")
@@ -9,6 +11,7 @@ module.exports = {
             .setRequired(true),
         ),
 
+    // TODO - Ver si esto funciona
     /** Sends a random image from r34 api
     * @param {CommandInteraction} interaction
     */
@@ -16,15 +19,10 @@ module.exports = {
         await interaction.deferReply();
         const character = interaction.options.getString("personaje");
         try {
-            r34Helper(`${character} `, 500)
-                .then(img => {
-                    interaction.followUp(img);
-                })
-                .catch(err => {
-                    interaction.followUp(err);
-                });
+            const img = await r34Helper(`${character} `, 500);
+            return interaction.followUp(img);
         } catch (error) {
-            console.log(error);
+            logger.error(error, "Error in r34 command");
             await interaction.followUp("Ocurrió un error");
         }
     },

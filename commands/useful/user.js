@@ -1,9 +1,11 @@
 const { SlashCommandBuilder } = require("discord.js");
+const logger = require("../../helpers/config/logger");
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("user")
         .setDescription("Mencioname a uno y te tiro la data"),
+
     /** Sends the user info
     * @param {CommandInteraction} interaction
     */
@@ -16,7 +18,7 @@ module.exports = {
                 }"\nOWNERID = "${process.env.OWNERID}"`,
             );
         } catch (error) {
-            console.log(error);
+            logger.error(error, "Error in user command");
             return await interaction.reply("No se que paso pero no funcó el comando");
         }
     },

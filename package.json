@@ -20,6 +20,8 @@
         "discord.js": "^14.14.1",
         "dotenv": "^16.4.5",
         "mediaplex": "^0.0.9",
+        "pino": "^8.19.0",
+        "pino-pretty": "^10.3.1",
         "sqlite3": "^5.1.7",
         "ytdl-core": "^4.11.5"
     },

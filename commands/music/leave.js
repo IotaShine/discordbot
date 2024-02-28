@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require("discord.js");
 const { useQueue } = require("discord-player");
+const logger = require("../../helpers/config/logger");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -10,7 +11,8 @@ module.exports = {
     * @param {CommandInteraction} interaction
     */
     async execute(interaction) {
-        if (!interaction.member.voice.channel) {
+        const vc = interaction.member.voice.channel;
+        if (!vc) {
             return await interaction.reply("No estas en un canal de voz salame");
         }
 
@@ -19,11 +21,9 @@ module.exports = {
             if (!queue) return await interaction.reply("Que haces bobo");
 
             queue.connection.destroy();
-            return await interaction.reply(
-                `Desconectado de ${interaction.member.voice.channel}`,
-            );
+            return await interaction.reply(`Desconectado de ${vc}`);
         } catch (error) {
-            console.log(error);
+            logger.error(error, "Error in leave command");
             return await interaction.reply("Ocurrió un error");
         }
     },

@@ -7,6 +7,7 @@ require("dotenv").config();
 const { ACTIVITY, STATUS, TOKEN } = process.env;
 const sqlite3 = require("sqlite3").verbose();
 const { createTables, shutdownHandler } = require("./helpers/config");
+const logger = require("./helpers/config/logger");
 
 const client = new Client({
     intents: [
@@ -33,10 +34,11 @@ for (const folder of commandFolders) {
 
         if ("data" in command && "execute" in command) {
             client.commands.set(command.data.name, command);
-            console.log(`[ SUCCESS ] - Command ${file} was loaded.`);
+
+            logger.info(`Command ${file} was loaded.`);
         } else {
-            console.log(
-                `[ WARNING ] - The command at ${path.join(
+            logger.warn(
+                `The command at ${path.join(
                     filePath,
                     file,
                 )} couldn't be loaded, It may be missing a 'data' or 'execute' property.`,
@@ -71,16 +73,16 @@ const player = new Player(client, {
 player.extractors.register(YoutubeExtractor, {});
 
 player.on("error", (queue, error) => {
-    console.log(`Error en la cola ${queue.guild.id}: ${error.message}`);
+    logger.error(`Error en la cola ${queue.guild.id}: ${error.message}`);
 });
 
 /** Inicializamos y agregamos la base de datos */
 const db = new sqlite3.Database(path.join(__dirname, "database/discordDB.sqlite3"), err => {
     if (err) {
-        console.error(err.message);
+        logger.fatal(err.message);
         process.exit(1);
     }
-    console.log("Connected to database successfully.");
+    logger.info("Connected to database successfully.");
 });
 client.db = db;
 createTables(db);
@@ -95,10 +97,10 @@ client
             activities: [{ name: ACTIVITY }],
             status: STATUS,
         });
-        console.log("Bot description status changed");
+        logger.info("Bot description status changed");
     })
     .catch(error => {
-        console.log(error);
-        console.log("There was an error while logging in");
+        logger.fatal("There was an error while logging in");
+        logger.fatal(error);
         process.exit(1);
     });

@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require("discord.js");
+const logger = require("../../helpers/config/logger");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -19,8 +20,8 @@ module.exports = {
                 (await interaction.options.getUser("target").avatarURL()) + "?size=1024",
             );
         } catch (error) {
-            console.log(error);
-            await interaction.reply("Ocurrio un error");
+            logger.error(error, "Error in avatar command");
+            await interaction.reply("Ocurrió un error");
         }
     },
 };

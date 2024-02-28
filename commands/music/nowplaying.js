@@ -1,5 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const { useQueue } = require("discord-player");
+const logger = require("../../helpers/config/logger");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -35,7 +36,7 @@ module.exports = {
                 ],
             });
         } catch (error) {
-            console.log(error);
+            logger.error(error, "Error in nowplaying command");
             return await interaction.followUp("Ocurrió un error al ejecutar el comando");
         }
     },

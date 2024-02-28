@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require("discord.js");
 const { useMainPlayer } = require("discord-player");
+const logger = require("../../helpers/config/logger");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -14,9 +15,16 @@ module.exports = {
             return await interaction.reply("No estas en un canal de voz salame");
         }
 
-        try {
-            const player = useMainPlayer();
+        // TODO - Pedirle a alguien a que me ayude a probar esto
+        const player = useMainPlayer();
+        const currentQueue = player.queues.get(interaction.guild.id);
+        if (currentQueue && currentQueue.connection) {
+            return await interaction.reply(
+                `Ya estoy conectado a ${currentQueue.connection.channel}`,
+            );
+        }
 
+        try {
             const queue = player.queues.create(interaction.guild);
 
             if (!queue.connection) {
@@ -27,7 +35,7 @@ module.exports = {
                 `Conectado a ${interaction.member.voice.channel}`,
             );
         } catch (error) {
-            console.log(error);
+            logger.error(error, "Error in connect command");
             return await interaction.reply("Ocurrió un error");
         }
     },

@@ -1,23 +1,24 @@
+const logger = require("./logger");
+
 /** Agrega un hook al evento de shutdown para cerrar la base de datos y desloguearse
  * @param {Client} client 
  */
 function shutdownHandler(client) {
     function gracefulShutdown() {
-        console.log("Shutting down gracefully...");
+        logger.info("Shutting down gracefully...");
 
         if (client.db) {
             client.db.close(() => {
-                console.log("Database connection closed.");
+                logger.info("Database connection closed.");
             });
         }
 
         client.destroy()
             .then(() => {
-                console.log("Logged out successfully.");
+                logger.info("Logged out successfully.");
                 process.exit(0);
             }).catch(error => {
-                console.log("There was an error while logging out");
-                console.log(error);
+                logger.error(error, "Error while logging out.");
                 process.exit(1);
             });
     }
@@ -26,6 +27,19 @@ function shutdownHandler(client) {
     process.on("SIGINT", gracefulShutdown);
     process.on("SIGTERM", gracefulShutdown);
     process.on("beforeExit", gracefulShutdown);
+    process.on("exit", gracefulShutdown);
+
+    // Listen for uncaught exceptions and rejections
+    process.on("uncaughtException", error => {
+        logger.fatal("Uncaught exception:", error);
+        gracefulShutdown();
+    });
+
+    process.on("unhandledRejection", error => {
+        logger.fatal("Unhandled rejection:", error);
+        gracefulShutdown();
+    });
+
 }
 
 module.exports = shutdownHandler;

@@ -1,5 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const { useMainPlayer } = require("discord-player");
+const logger = require("../../helpers/config/logger");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -47,7 +48,7 @@ module.exports = {
 
             return interaction.followUp({ embeds: [embed] });
         } catch (error) {
-            console.error(error);
+            logger.error(error, "Error in play command");
             return interaction.followUp("Ando mal de la panza y hubo un error :nauseated_face:");
         }
     },

@@ -1,9 +1,11 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
+const logger = require("../../helpers/config/logger");
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("help")
         .setDescription("Te tiro la data de mis comandos"),
+
     /** Sends a list of the commands
      * @param {CommandInteraction} interaction
      */
@@ -27,7 +29,7 @@ module.exports = {
 
             return await interaction.followUp({ embeds: [embed] });
         } catch (error) {
-            console.log(error);
+            logger.error(error, "Error in help command");
             await interaction.reply("Ocurrió un error");
         }
     },

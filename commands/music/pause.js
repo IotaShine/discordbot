@@ -1,5 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const { useQueue } = require("discord-player");
+const logger = require("../../helpers/config/logger");
 
 module.exports = {
     data: new SlashCommandBuilder().setName("pause").setDescription("te pauso la música"),
@@ -29,7 +30,7 @@ module.exports = {
                 ],
             });
         } catch (error) {
-            console.log(error);
+            logger.error(error, "Error in pause command");
             return await interaction.followUp("Ocurrió un error");
         }
     },

@@ -1,5 +1,6 @@
 const { useMainPlayer } = require("discord-player");
 const { EmbedBuilder } = require("discord.js");
+const logger = require("../config/logger");
 
 /** 
  * Adds a song to a playlist
@@ -57,7 +58,7 @@ const add = async (interaction) => {
         return await interaction.reply({ embeds: [embed], ephemeral: true });
 
     } catch (error) {
-        console.log(error);
+        logger.error(error, "Error in playlist add command");
         const embed = new EmbedBuilder().setTitle("Error").setDescription(error.message).setColor("Red");
         return await interaction.reply({ embeds: [embed] });
     }
