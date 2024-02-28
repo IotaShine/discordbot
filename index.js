@@ -63,7 +63,6 @@ for (const file of eventFiles) {
 /** Agregamos el reproductor de música */
 const player = new Player(client, {
     skipFFmpeg: true,
-    connectionTimeout: 60000,
 });
 player.extractors.register(YoutubeExtractor, {});
 
