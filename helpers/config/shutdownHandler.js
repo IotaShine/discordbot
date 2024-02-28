@@ -11,8 +11,15 @@ function shutdownHandler(client) {
             });
         }
 
-        client.destroy();
-        process.exit(0);
+        client.destroy()
+            .then(() => {
+                console.log("Logged out successfully.");
+                process.exit(0);
+            }).catch(error => {
+                console.log("There was an error while logging out");
+                console.log(error);
+                process.exit(1);
+            });
     }
 
     // Listen for shutdown signals
