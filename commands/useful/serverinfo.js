@@ -16,11 +16,18 @@ module.exports = {
 
         const icon = guild.iconURL();
 
-        const embedDescription = `Nombre: \`${name}\`\nCantidad de miembros: ${memberCount}\nFecha de creación: ${createdAt}\nTe uniste el: ${joinedAt} \nOwner: <@${ownerId}>.`;
+        const creation = new Date(createdAt).toLocaleString();
+        const join = new Date(joinedAt).toLocaleString();
 
         const embed = new EmbedBuilder()
             .setTitle(`Server info for: ${name}`)
-            .setDescription(embedDescription)
+            .addFields(
+                { name: "Nombre", value: name, inline: true },
+                { name: "Cantidad de miembros", value: memberCount, inline: false },
+                { name: "Fecha de creación", value: creation, inline: false },
+                { name: "Te uniste el", value: join, inline: false },
+                { name: "Owner", value: `<@${ownerId}>`, inline: false },
+            )
             .setColor("Random")
             .setThumbnail(icon);
 
