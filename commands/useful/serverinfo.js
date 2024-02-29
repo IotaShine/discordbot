@@ -12,27 +12,31 @@ module.exports = {
     async execute(interaction) {
 
         const { guild } = interaction;
-        const { name, memberCount, createdAt, joinedAt, ownerId } = guild;
-
-        const icon = guild.iconURL();
-
-        const creation = new Date(createdAt).toLocaleString();
-        const join = new Date(joinedAt).toLocaleString();
-
-        const embed = new EmbedBuilder()
-            .setTitle(`Server info for: ${name}`)
-            .addFields(
-                { name: "Nombre", value: name, inline: true },
-                { name: "Cantidad de miembros", value: memberCount, inline: false },
-                { name: "Fecha de creación", value: creation, inline: false },
-                { name: "Te uniste el", value: join, inline: false },
-                { name: "Owner", value: `<@${ownerId}>`, inline: false },
-            )
-            .setColor("Random")
-            .setThumbnail(icon);
-
         try {
-            await interaction.reply({ embeds: [embed] });
+            const { name, id, memberCount, createdAt, premiumTier, premiumSubscriptionCount, verificationLevel, channels, roles } = guild;
+            const ownerUser = await guild.fetchOwner();
+            const textChannels = channels.cache.filter(c => c.type === 0).size;
+            const voiceChannels = channels.cache.filter(c => c.type === 2).size;
+            const roleCount = roles.cache.size;
+
+            const embed = new EmbedBuilder()
+                .setTitle(`${name}'s Information`)
+                .addFields(
+                    { name: "Server Name", value: name },
+                    { name: "Server ID", value: String(id) },
+                    { name: "Member Count", value: String(memberCount) },
+                    { name: "Creation Date", value: String(createdAt.toDateString()) },
+                    { name: "Server Owner", value: ownerUser.user.tag },
+                    { name: "Boost Level", value: String(premiumTier) },
+                    { name: "Boost Count", value: String(premiumSubscriptionCount) },
+                    { name: "Verification Level", value: String(verificationLevel) },
+                    { name: "Text Channels", value: String(textChannels) },
+                    { name: "Voice Channels", value: String(voiceChannels) },
+                    { name: "Total Roles", value: String(roleCount) },
+                )
+                .setColor("Random");
+
+            return interaction.reply({ embeds: [embed] });
         } catch (error) {
             logger.error(error, "Error in serverinfo command");
             await interaction.reply("Salio para el orto esto no se que onda hubo un error");
