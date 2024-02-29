@@ -11,7 +11,6 @@ module.exports = {
             .setRequired(true),
         ),
 
-    // TODO - Ver si esto funciona
     /** Sends a random image from r34 api
     * @param {CommandInteraction} interaction
     */
@@ -19,8 +18,10 @@ module.exports = {
         await interaction.deferReply();
         const character = interaction.options.getString("personaje");
         try {
-            const img = await r34Helper(`${character} `, 500);
-            return interaction.followUp(img);
+            const img = await r34Helper(`${character} `);
+            return interaction.followUp(
+                { content: `Imagen aleatoria de ${character}`, files: [img] },
+            );
         } catch (error) {
             logger.error(error, "Error in r34 command");
             await interaction.followUp("Ocurrió un error");

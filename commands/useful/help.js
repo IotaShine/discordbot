@@ -42,7 +42,5 @@ function sortCommands(a, b) {
 }
 
 function makeDescription(commands) {
-    return commands.sort(sortCommands).map(command => {
-        return `**[ /${command.data.name} ]** - ${command.data.description}`;
-    }).join("\n");
+    return commands.sort(sortCommands).map(command => (`**[ /${command.data.name} ]** - ${command.data.description}`)).join("\n");
 }

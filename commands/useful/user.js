@@ -33,9 +33,9 @@ module.exports = {
             .addFields(
                 { name: "Username", value: member.user.username, inline: true },
                 { name: "User ID", value: member.user.id, inline: true },
-                { name: "Bot", value: member.user.bot ? "Yes" : "No", inline: true },
-                { name: "Creation Date", value: member.user.createdAt.toDateString(), inline: true },
-                { name: "Server Join Date", value: member.joinedAt.toDateString(), inline: true },
+                { name: "Bot", value: member.user.bot ? "Si" : "No", inline: true },
+                { name: "Fecha de Creación", value: member.user.createdAt.toDateString(), inline: true },
+                { name: "Fecha de union al servidor", value: member.joinedAt.toDateString(), inline: true },
                 { name: "Roles", value: userRoles, inline: false },
             )
             .setColor("Random");

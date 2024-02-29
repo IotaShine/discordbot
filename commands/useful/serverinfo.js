@@ -22,17 +22,17 @@ module.exports = {
             const embed = new EmbedBuilder()
                 .setTitle(`${name}'s Information`)
                 .addFields(
-                    { name: "Server Name", value: name },
+                    { name: "Nombre del server", value: name },
                     { name: "Server ID", value: String(id) },
-                    { name: "Member Count", value: String(memberCount) },
-                    { name: "Creation Date", value: String(createdAt.toDateString()) },
+                    { name: "Cantidad de miembros", value: String(memberCount) },
+                    { name: "Fecha de Creación", value: String(createdAt.toDateString()) },
                     { name: "Server Owner", value: ownerUser.user.tag },
-                    { name: "Boost Level", value: String(premiumTier) },
-                    { name: "Boost Count", value: String(premiumSubscriptionCount) },
+                    { name: "Nivel de Boost", value: String(premiumTier) },
+                    { name: "Cantidad de Boosts", value: String(premiumSubscriptionCount) },
                     { name: "Verification Level", value: String(verificationLevel) },
-                    { name: "Text Channels", value: String(textChannels) },
-                    { name: "Voice Channels", value: String(voiceChannels) },
-                    { name: "Total Roles", value: String(roleCount) },
+                    { name: "Cantidad de Canales de Texto", value: String(textChannels) },
+                    { name: "Cantidad de Canales de Voz", value: String(voiceChannels) },
+                    { name: "Cantidad de roles", value: String(roleCount) },
                 )
                 .setColor("Random");
 

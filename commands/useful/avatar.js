@@ -16,12 +16,15 @@ module.exports = {
      */
     async execute(interaction) {
         try {
-            await interaction.reply(
-                (await interaction.options.getUser("target").avatarURL()) + "?size=1024",
-            );
+            const img = (await interaction.options.getUser("target").avatarURL()) + "?size=1024";
+
+            await interaction.reply({
+                content: `Avatar de ${interaction.options.getUser("target").username}`,
+                files: [img],
+            });
         } catch (error) {
             logger.error(error, "Error in avatar command");
-            await interaction.reply("Ocurrió un error");
+            await interaction.reply("Na ni idea que paso, pero no pude hacerlo.");
         }
     },
 };
