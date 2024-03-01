@@ -7,7 +7,7 @@ module.exports = {
         .setDescription("Sabiduría"),
 
     /** Sends a random escritura
-    * @param {CommandInteraction} interaction
+    * @param {import("discord.js").Interaction} interaction
     */
     async execute(interaction) {
         const escritura = escrituras[Math.floor(Math.random() * escrituras.length)];

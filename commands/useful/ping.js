@@ -4,7 +4,7 @@ const logger = require("../../helpers/config/logger");
 module.exports = {
     data: new SlashCommandBuilder().setName("ping").setDescription("pong"),
     /** Sends pong
-    * @param {CommandInteraction} interaction
+    * @param {import("discord.js").Interaction} interaction
     */
     async execute(interaction) {
 

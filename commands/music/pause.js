@@ -6,7 +6,7 @@ module.exports = {
     data: new SlashCommandBuilder().setName("pause").setDescription("te pauso la música"),
 
     /** Pauses the current track
-    * @param {CommandInteraction} interaction
+    * @param {import("discord.js").Interaction} interaction
     */
     async execute(interaction) {
         if (!interaction.member.voice.channel) {

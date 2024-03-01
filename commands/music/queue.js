@@ -5,6 +5,9 @@ const logger = require("../../helpers/config/logger");
 module.exports = {
     data: new SlashCommandBuilder().setName("queue").setDescription("muestra que esta en cola"),
 
+    /**
+     * @param {import("discord.js").Interaction} interaction 
+     */
     async execute(interaction) {
         if (!interaction.member.voice.channel) {
             await interaction.reply("No estas en un canal de voz salame");

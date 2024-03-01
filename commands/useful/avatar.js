@@ -12,7 +12,7 @@ module.exports = {
                 .setRequired(true),
         ),
     /** Retrieves the avatar of the target user
-     * @param {CommandInteraction} interaction
+     * @param {import("discord.js").Interaction} interaction
      */
     async execute(interaction) {
         try {

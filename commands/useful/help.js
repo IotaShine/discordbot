@@ -7,7 +7,7 @@ module.exports = {
         .setDescription("Te tiro la data de mis comandos"),
 
     /** Sends a list of the commands
-     * @param {CommandInteraction} interaction
+     * @param {import("discord.js").Interaction} interaction
      */
     async execute(interaction) {
         try {

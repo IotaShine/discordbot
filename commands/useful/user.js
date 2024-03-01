@@ -13,7 +13,7 @@ module.exports = {
         ),
 
     /** Sends the user info
-    * @param {CommandInteraction} interaction
+    * @param {import("discord.js").Interaction} interaction
     */
     async execute(interaction) {
         const member = interaction.options.getMember("user");

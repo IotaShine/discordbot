@@ -8,7 +8,7 @@ module.exports = {
         .setDescription("Me desconecto del canal de voz."),
 
     /** Leaves the voice channel
-    * @param {CommandInteraction} interaction
+    * @param {import("discord.js").Interaction} interaction
     */
     async execute(interaction) {
         const vc = interaction.member.voice.channel;

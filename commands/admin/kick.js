@@ -20,7 +20,7 @@ module.exports = {
         ),
 
     /** Kicks a user
-    * @param {CommandInteraction} interaction
+    * @param {import("discord.js").Interaction} interaction
     */
     async execute(interaction) {
         const user = interaction.options.getUser("user");

@@ -7,7 +7,7 @@ module.exports = {
         .setDescription("comando para invitarme a otros servers"),
 
     /** Sends the invite link
-    * @param {CommandInteraction} interaction
+    * @param {import("discord.js").Interaction} interaction
     */
     async execute(interaction) {
         try {

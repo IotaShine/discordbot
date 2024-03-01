@@ -9,7 +9,7 @@ module.exports = {
 
 
     /** Sends the current track
-    * @param {CommandInteraction} interaction
+    * @param {import("discord.js").Interaction} interaction
     */
     async execute(interaction) {
         if (!interaction.member.voice.channel) {

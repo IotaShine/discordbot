@@ -65,7 +65,7 @@ module.exports = {
         ),
 
     /**
-     * @param {CommandInteraction} interaction
+     * @param {import("discord.js").Interaction} interaction
      */
     async execute(interaction) {
         const command = await interaction.options.getSubcommand();
