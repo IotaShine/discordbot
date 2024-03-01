@@ -1,5 +1,6 @@
 const { useQueue } = require("discord-player");
 const { EmbedBuilder } = require("discord.js");
+const { logger } = require("../");
 
 /**
  * Creates a playlist in the database
@@ -17,7 +18,7 @@ const createPlaylist = async (client, tracks, owner, nombre) => {
         db.serialize(() => {
             db.run(userSqlQuery, [owner], err => {
                 if (err) {
-                    console.error(err.message);
+                    logger.error(err.message);
                     reject(err);
                 }
             });
@@ -82,7 +83,7 @@ const save = async (interaction, guild) => {
             ],
         });
     } catch (error) {
-        console.log(error);
+        logger.error(error);
         const embed = new EmbedBuilder().setTitle("Error").setDescription(error.message).setColor("Red");
         return await interaction.followUp({ embeds: [embed] });
     }

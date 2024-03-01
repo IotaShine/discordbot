@@ -1,4 +1,4 @@
-const logger = require("./logger");
+const { logger } = require("../");
 
 /** Agrega un hook al evento de shutdown para cerrar la base de datos y desloguearse
  * @param {Client} client 

@@ -1,10 +1,10 @@
 const { useMainPlayer } = require("discord-player");
 const { EmbedBuilder } = require("discord.js");
-const logger = require("../config/logger");
+const { logger } = require("../");
 
 /** 
  * Adds a song to a playlist
- * @param {Client} client
+ * @param {import("discord.js").Client} client
  * @param {string} owner
  * @param {string} nombre
  * @param {string} cancion
@@ -31,7 +31,7 @@ const addToPlaylist = async (client, owner, nombre, cancion) => {
 };
 
 /** Handles the discord interaction of adding a song to a playlist
- * @param {CommandInteraction} interaction
+ * @param {import("discord.js").Interaction} interaction
  */
 const add = async (interaction) => {
     try {

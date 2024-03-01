@@ -1,4 +1,4 @@
-const logger = require("../config/logger");
+const { logger } = require("../");
 
 const limit = 500;
 /** Fetches a random image from rule34 api

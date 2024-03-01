@@ -1,8 +1,9 @@
 const { EmbedBuilder } = require("discord.js");
+const { logger } = require("../");
 
 /** 
  * Requests the playlists from the database
- * @param {Client} client
+ * @param {import("discord.js").Client} client
  * @param {string} user_id
  */
 const requestPlaylists = async (client, user_id) => {
@@ -20,7 +21,7 @@ const requestPlaylists = async (client, user_id) => {
 
 /**
  * Handles the discord interaction of listing the playlists
- * @param {CommandInteraction} interaction
+ * @param {import("discord.js").Interaction} interaction
  */
 const list = async (interaction) => {
     await interaction.deferReply();
@@ -56,6 +57,7 @@ const list = async (interaction) => {
             ],
         });
     } catch (error) {
+        logger.error(error, "Error when listing playlists");
         return await interaction.followUp(error);
     }
 };

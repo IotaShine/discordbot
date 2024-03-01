@@ -1,4 +1,5 @@
 const { EmbedBuilder } = require("discord.js");
+const { logger } = require("../");
 
 /**
  * Deletes the playlist from the database
@@ -38,7 +39,7 @@ const remove = async (interaction) => {
 
         return await interaction.reply(a);
     } catch (error) {
-        console.log(error);
+        logger.error(error);
         const embed = new EmbedBuilder().setTitle("Error").setDescription(error.message).setColor("Red");
         return await interaction.reply({ embeds: [embed] });
     }

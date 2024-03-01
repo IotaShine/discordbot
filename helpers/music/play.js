@@ -1,6 +1,7 @@
 const { EmbedBuilder } = require("discord.js");
 const { Track } = require("discord-player");
 const { useMainPlayer } = require("discord-player");
+const { logger } = require("../");
 
 /**
  * Retrieves the playlist from the database
@@ -76,6 +77,7 @@ const play = async (interaction) => {
             embeds: [embed],
         });
     } catch (error) {
+        logger.error(error, "Error al intentar reproducir la playlist");
         return interaction.followUp(error.message || "Ocurrió un error al intentar reproducir la playlist");
     }
 };

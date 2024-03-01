@@ -1,5 +1,5 @@
 const { Events } = require("discord.js");
-const logger = require("../helpers/config/logger");
+const { logger } = require("../helpers/");
 
 module.exports = {
     name: Events.ClientReady,

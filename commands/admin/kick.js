@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require("discord.js");
 require("dotenv").config();
 const { OWNERID } = process.env;
-const logger = require("../../helpers/config/logger");
+const { logger } = require("../../helpers");
 
 module.exports = {
     data: new SlashCommandBuilder()

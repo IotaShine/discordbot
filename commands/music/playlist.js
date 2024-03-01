@@ -1,9 +1,5 @@
 const { SlashCommandBuilder } = require("discord.js");
-const play = require("../../helpers/music/play");
-const save = require("../../helpers/music/save");
-const list = require("../../helpers/music/list");
-const remove = require("../../helpers/music/remove");
-const add = require("../../helpers/music/add");
+const { add, play, remove, list, save } = require("../../helpers");
 
 // TODO - Cambiar como se guardan las playlists https://discord-player.js.org/guide/faq/serialization-and-deserialization
 module.exports = {

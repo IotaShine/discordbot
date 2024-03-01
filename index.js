@@ -6,14 +6,15 @@ const { YoutubeExtractor } = require("@discord-player/extractor");
 require("dotenv").config();
 const { ACTIVITY, STATUS, TOKEN } = process.env;
 const sqlite3 = require("sqlite3").verbose();
-const { createTables, shutdownHandler } = require("./helpers/config");
-const logger = require("./helpers/config/logger");
+const { logger, createTables, shutdownHandler } = require("./helpers");
+
 
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
         GatewayIntentBits.GuildMessages,
         GatewayIntentBits.GuildVoiceStates,
+        GatewayIntentBits.MessageContent,
     ],
 });
 

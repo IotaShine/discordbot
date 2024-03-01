@@ -1,6 +1,5 @@
 const { SlashCommandBuilder } = require("discord.js");
-const r34Helper = require("../../helpers/meme/r34_helper");
-const logger = require("../../helpers/config/logger");
+const { logger, r34Helper } = require("../../helpers/");
 
 module.exports = {
     data: new SlashCommandBuilder().setName("r34")
