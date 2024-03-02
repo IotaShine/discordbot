@@ -18,6 +18,9 @@ ENV GUILD_ID=$GUILD_ID
 ENV ACTIVITY=$ACTIVITY
 ENV STATUS=$STATUS
 ENV OWNERID=$OWNERID
+ENV TZ=${TZ}
+
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN rm -rf /var/cache/apt/* /tmp/* 
 

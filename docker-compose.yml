@@ -16,3 +16,4 @@ services:
             - ACTIVITY=${ACTIVITY}
             - STATUS=${STATUS}
             - OWNERID=${OWNERID}
+            - TZ=${TZ}

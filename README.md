@@ -26,6 +26,7 @@ docker run -d \
   -e ACTIVITY=${ACTIVITY} \
   -e STATUS=${STATUS} \
   -e OWNERID=${OWNERID} \
+  -e TZ=${TZ} \
   ghcr.io/iotashine/discordbot:main
 ```
 
@@ -50,6 +51,7 @@ services:
             - ACTIVITY=${ACTIVITY}
             - STATUS=${STATUS}
             - OWNERID=${OWNERID}
+            - TZ=${TZ}
 ```
 
 ### Locally
