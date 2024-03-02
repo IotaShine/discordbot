@@ -21,4 +21,4 @@ ENV OWNERID=$OWNERID
 
 RUN rm -rf /var/cache/apt/* /tmp/* 
 
-CMD /bin/sh -c "npm run refresh-global && npm run bot"
+CMD /bin/sh -c "npm run refresh-global && exec npm run bot"
