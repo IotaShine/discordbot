@@ -31,12 +31,12 @@ function shutdownHandler(client) {
 
     // Listen for uncaught exceptions and rejections
     process.on("uncaughtException", error => {
-        logger.fatal("Uncaught exception:", error);
+        logger.fatal(error, "Uncaught exception");
         gracefulShutdown();
     });
 
     process.on("unhandledRejection", error => {
-        logger.fatal("Unhandled rejection:", error);
+        logger.fatal(error, "Unhandled rejection");
         gracefulShutdown();
     });
 

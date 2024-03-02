@@ -9,6 +9,9 @@ const { logger, createTables, shutdownHandler } = require("./helpers");
 const db = require("./helpers/db/database");
 const refreshCommands = require("./deploy-commands-global");
 
+// FIXME - Remove the db from the client and use the db from the helpers/db/database.js
+// FIXME - Fix date and time in docker container
+
 /** Refrescamos los comandos */
 refreshCommands().then(() => {
     logger.info("Commands refreshed successfully.");

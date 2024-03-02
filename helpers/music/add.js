@@ -1,6 +1,6 @@
 const { useMainPlayer } = require("discord-player");
 const { EmbedBuilder } = require("discord.js");
-const { logger } = require("../config/logger");
+const logger = require("../config/logger");
 
 /** 
  * Adds a song to a playlist
