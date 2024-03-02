@@ -7,7 +7,16 @@ require("dotenv").config();
 const { ACTIVITY, STATUS, TOKEN } = process.env;
 const { logger, createTables, shutdownHandler } = require("./helpers");
 const db = require("./helpers/db/database");
+const refreshCommands = require("./deploy-commands-global");
 
+/** Refrescamos los comandos */
+refreshCommands().then(() => {
+    logger.info("Commands refreshed successfully.");
+}).catch(error => {
+    logger.error("There was an error while refreshing the commands.");
+    logger.error(error);
+    process.exit(1);
+});
 
 const client = new Client({
     intents: [
