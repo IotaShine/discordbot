@@ -1,6 +1,6 @@
 const { useQueue } = require("discord-player");
 const { EmbedBuilder } = require("discord.js");
-const { logger } = require("../");
+const { logger } = require("../config/logger");
 
 /**
  * Creates a playlist in the database
