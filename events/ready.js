@@ -5,7 +5,7 @@ module.exports = {
     name: Events.ClientReady,
     once: true,
     /** Runs when the bot starts
-     * @param {Client} client
+     * @param {import("discord.js").Client} client
      */
     execute(client) {
         logger.info(`Bot ready, Logged in as ${client.user.tag}`);

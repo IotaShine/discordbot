@@ -25,6 +25,9 @@ const transport = pino.transport({
     ],
 });
 
+/**
+ * @type {import("pino").Logger}
+ */
 const logger = pino(transport);
 
 module.exports = logger;
