@@ -1,11 +1,7 @@
 const { Events } = require("discord.js");
 const { logger, getUser, createUser, updateUsers } = require("../helpers/");
 const db = require("../helpers/db/database");
-
-/**
- * @type {Map<string, import("../helpers/types").User>}
- */
-const userCache = new Map();
+const userCache = require("../helpers/db/userCache");
 
 setInterval(async () => {
     const usersArray = Array
