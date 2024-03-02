@@ -4,7 +4,10 @@ const shutdownHandler = require("./config/shutdownHandler");
 
 // DB
 const createTables = require("./db/createTables");
+const createUser = require("./db/createUser");
+const updateUsers = require("./db/updateUsers");
 const getUser = require("./db/getUser");
+
 
 // Meme
 const r34Helper = require("./meme/r34_helper");
@@ -17,14 +20,16 @@ const remove = require("./music/remove");
 const save = require("./music/save");
 
 module.exports = {
-    logger,
-    shutdownHandler,
-    createTables,
-    getUser,
-    r34Helper,
     add,
+    createTables,
+    createUser,
+    updateUsers,
+    getUser,
     list,
+    logger,
     play,
+    r34Helper,
     remove,
     save,
+    shutdownHandler,
 };

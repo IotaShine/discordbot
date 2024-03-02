@@ -5,8 +5,8 @@ const { Player } = require("discord-player");
 const { YoutubeExtractor } = require("@discord-player/extractor");
 require("dotenv").config();
 const { ACTIVITY, STATUS, TOKEN } = process.env;
-const sqlite3 = require("sqlite3").verbose();
 const { logger, createTables, shutdownHandler } = require("./helpers");
+const db = require("./helpers/db/database");
 
 
 const client = new Client({
@@ -78,13 +78,9 @@ player.on("error", (queue, error) => {
 });
 
 /** Inicializamos y agregamos la base de datos */
-const db = new sqlite3.Database(path.join(__dirname, "database/discordDB.sqlite3"), err => {
-    if (err) {
-        logger.fatal(err.message);
-        process.exit(1);
-    }
-    logger.info("Connected to database successfully.");
-});
+/** 
+ * FIXME - Remove the db from the client and use the db from the helpers/db/database.js
+ */
 client.db = db;
 createTables(db);
 

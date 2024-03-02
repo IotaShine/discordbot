@@ -18,7 +18,7 @@ const playlistsTableQuery = `CREATE TABLE IF NOT EXISTS playlists (
 
 /** 
  * Create the tables in the database
- * @param {Database} db
+ * @param {import("sqlite3").Database} db
  */
 const createTables = (db) => {
     db.serialize(() => {

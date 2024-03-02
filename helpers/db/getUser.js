@@ -1,5 +1,4 @@
 /**
- * 
  * @param {import("discord.js").Message} message 
  * @param {string} id 
  */
@@ -14,7 +13,6 @@ function getUser(message, id) {
             }
         });
     });
-
 }
 
 module.exports = getUser;
