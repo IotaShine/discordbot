@@ -1,9 +1,8 @@
+const db = require("./database");
 /**
- * @param {import("discord.js").Message} message 
  * @param {string} id 
  */
-function getUser(message, id) {
-    const db = message.client.db;
+function getUser(id) {
     return new Promise((resolve, reject) => {
         db.get("SELECT * FROM users WHERE user_id = ?", [id], (err, row) => {
             if (err) {
