@@ -1,6 +1,7 @@
 const db = require("./database");
 /**
- * @param {string} id 
+ * @param {string} id
+ * @returns {Promise<import("../types").User>}
  */
 function getUser(id) {
     return new Promise((resolve, reject) => {
