@@ -16,7 +16,9 @@ module.exports = {
      */
     async execute(interaction) {
         try {
-            const img = (await interaction.options.getUser("target").avatarURL()) + "?size=1024";
+            /** @type {import("discord.js").User} */
+            const user = interaction.options.getUser("target");
+            const img = user.avatarURL().concat("?size=4096");
 
             await interaction.reply({
                 content: `Avatar de ${interaction.options.getUser("target").username}`,
