@@ -4,10 +4,11 @@ const { Client, Collection, GatewayIntentBits } = require("discord.js");
 const { Player } = require("discord-player");
 const { YoutubeExtractor } = require("@discord-player/extractor");
 require("dotenv").config();
-const { ACTIVITY, STATUS, TOKEN } = process.env;
+const { ACTIVITY, STATUS, TOKEN, ENVIROMENT } = process.env;
 const { logger, createTables, shutdownHandler } = require("./helpers");
 const db = require("./helpers/db/database");
 const refreshCommands = require("./deploy-commands-global");
+const refreshGuildCommands = require("./deploy-commands");
 
 // FIXME - Remove the db from the client and use the db from the helpers/db/database.js
 // FIXME - Fix date and time in docker container
@@ -17,7 +18,14 @@ const refreshCommands = require("./deploy-commands-global");
 async function startBot() {
 
     try {
-        await refreshCommands();
+
+        if (ENVIROMENT === "development") {
+            logger.info("Refreshing guild commands");
+            await refreshGuildCommands();
+        } else {
+            logger.info("Refreshing global commands");
+            await refreshCommands();
+        }
 
         const client = new Client({
             intents: [
