@@ -8,6 +8,7 @@ module.exports = {
      */
     async execute(interaction) {
         if (!interaction.isChatInputCommand()) return;
+        if (!interaction.guild) return interaction.reply("Nope");
 
         const command = interaction.client.commands.get(interaction.commandName);
 
