@@ -12,13 +12,14 @@ module.exports = {
                 .setRequired(true),
         ),
     /** Retrieves the avatar of the target user
-     * @param {import("discord.js").Interaction} interaction
+     * @param {import("discord.js").CommandInteraction} interaction
      */
     async execute(interaction) {
         try {
-            /** @type {import("discord.js").User} */
             const user = interaction.options.getUser("target");
-            const img = user.avatarURL().concat("?size=4096");
+
+            const img = user.avatarURL({ size: 4096, extension: "png" });
+            if (!img) return await interaction.reply("No pude encontrar la foto de ese usuario.");
 
             await interaction.reply({
                 content: `Avatar de ${interaction.options.getUser("target").username}`,
