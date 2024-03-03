@@ -18,23 +18,26 @@ module.exports = {
      * @param {import("discord.js").CommandInteraction} interaction
      */
     async execute(interaction) {
-        const user = interaction.options.getUser("user");
-        if (user.bot) return interaction.reply("Los bots no tienen nivel salamin");
+        const userOption = interaction.options.getUser("user");
+        if (userOption.bot) return interaction.reply("Los bots no tienen nivel salamin");
 
-        const cachedUser = userCache.get(user.id);
+        let user = userCache.get(userOption.id);
 
-        if (!cachedUser) {
+        if (!user) {
             try {
-                const newUser = await getUser(user.id);
-                if (!newUser) return interaction.reply("No se encontró al usuario");
-                userCache.set(user.id, newUser);
-                return await interaction.reply(`El nivel de ${user.username} es ${newUser.level} master`);
+                user = await getUser(userOption.id);
+                if (!user) {
+                    userCache.set(userOption.id, { user_id: userOption.id, xp: 0, level: 0, isDirty: true });
+                    return await interaction.reply(`El nivel de **${userOption.displayName}** es **0** master`);
+                }
+                userCache.set(userOption.id, user);
+                return await interaction.reply(`El nivel de **${userOption.displayName}** es **${user.level}** master`);
             } catch (error) {
                 logger.error(error);
                 return interaction.reply("There was an error while fetching the data");
             }
         } else {
-            return interaction.reply(`El nivel de ${user.username} es ${user.level} master`);
+            return interaction.reply(`El nivel de ${userOption.username} es ${userOption.level} master`);
         }
     },
 };
