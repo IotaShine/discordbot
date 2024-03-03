@@ -11,7 +11,7 @@ module.exports = {
         ),
 
     /** Sends a random image from r34 api
-    * @param {import("discord.js").Interaction} interaction
+    * @param {import("discord.js").CommandInteraction} interaction
     */
     async execute(interaction) {
         await interaction.deferReply();

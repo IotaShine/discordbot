@@ -8,7 +8,7 @@ module.exports = {
         .setDescription("le doy play de vuelta a la música"),
 
     /** Resumes the current track
-    * @param {import("discord.js").Interaction} interaction
+    * @param {import("discord.js").CommandInteraction} interaction
     */
     async execute(interaction) {
         if (!interaction.member.voice.channel) {

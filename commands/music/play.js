@@ -14,7 +14,7 @@ module.exports = {
         ),
 
     /** Plays a song
-    * @param {import("discord.js").Interaction} interaction
+    * @param {import("discord.js").CommandInteraction} interaction
     */
     async execute(interaction) {
         const channel = interaction.member.voice.channel;

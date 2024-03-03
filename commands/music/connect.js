@@ -8,7 +8,7 @@ module.exports = {
         .setDescription("Me conecto al canal en el que estas vos."),
 
     /** Connects to the voice channel
-    * @param {import("discord.js").Interaction} interaction
+    * @param {import("discord.js").CommandInteraction} interaction
     */
     async execute(interaction) {
         if (!interaction.member.voice.channel) {

@@ -6,7 +6,7 @@ module.exports = {
         .setName("shuffle")
         .setDescription("Mezclo la cola de reproducción"),
     /** Shuffles the queue
-     * @param {import("discord.js").Interaction} interaction
+     * @param {import("discord.js").CommandInteraction} interaction
      */
     async execute(interaction) {
         if (!interaction.member.voice.channel) return await interaction.reply("No estas en un canal de voz salame");

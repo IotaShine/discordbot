@@ -4,7 +4,7 @@ const { logger } = require("../helpers/");
 module.exports = {
     name: Events.InteractionCreate,
     /** 
-     * @param {import("discord.js").Interaction} interaction 
+     * @param {import("discord.js").CommandInteraction} interaction 
      */
     async execute(interaction) {
         if (!interaction.isChatInputCommand()) return;

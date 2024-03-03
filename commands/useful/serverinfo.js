@@ -7,7 +7,7 @@ module.exports = {
         .setDescription("te tiro la data sobre el server este"),
 
     /** Sends the server info
-    * @param {import("discord.js").Interaction} interaction
+    * @param {import("discord.js").CommandInteraction} interaction
     */
     async execute(interaction) {
 

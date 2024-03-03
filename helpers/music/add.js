@@ -31,7 +31,7 @@ const addToPlaylist = async (client, owner, nombre, cancion) => {
 };
 
 /** Handles the discord interaction of adding a song to a playlist
- * @param {import("discord.js").Interaction} interaction
+ * @param {import("discord.js").CommandInteraction} interaction
  */
 const add = async (interaction) => {
     try {

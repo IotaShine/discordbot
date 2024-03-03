@@ -14,7 +14,7 @@ module.exports = {
         ),
 
     /** Plays a song before all others
-    * @param {import("discord.js").Interaction} interaction
+    * @param {import("discord.js").CommandInteraction} interaction
     */
     async execute(interaction) {
         if (!interaction.member.voice.channel) {

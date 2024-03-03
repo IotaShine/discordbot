@@ -21,7 +21,7 @@ const requestPlaylists = async (client, user_id) => {
 
 /**
  * Handles the discord interaction of listing the playlists
- * @param {import("discord.js").Interaction} interaction
+ * @param {import("discord.js").CommandInteraction} interaction
  */
 const list = async (interaction) => {
     await interaction.deferReply();
