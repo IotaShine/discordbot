@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require("discord.js");
+const { SlashCommandBuilder, PermissionsBitField } = require("discord.js");
 const updateGuildCommands = require("../../../scripts/deploy-commands");
 const updateGlobalCommands = require("../../../scripts/deploy-commands-global");
 
@@ -16,7 +16,8 @@ module.exports = {
             subcommand
                 .setName("global")
                 .setDescription("Update the global commands"),
-        ),
+        )
+        .setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator),
     /**
      * @param {CommandInteraction} interaction
      */
