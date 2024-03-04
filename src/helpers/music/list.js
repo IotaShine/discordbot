@@ -41,7 +41,7 @@ const list = async (interaction) => {
             })
             .join("\n");
 
-        const image = interaction.user.avatarURL({ extension: "png", size: 512 })
+        const image = interaction.user.avatarURL({ extension: "png", size: 512 });
 
         return await interaction.followUp({
             embeds: [
