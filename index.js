@@ -7,6 +7,7 @@ require("dotenv").config();
 const { ACTIVITY, STATUS, TOKEN, CLIENT_ID } = process.env;
 const { logger, createTables, shutdownHandler } = require("./src/helpers");
 const db = require("./src/helpers/db/database");
+const checkFirstRun = require("./scripts/first-run-check");
 
 // FIXME - Remove the db from the client and use the db from the helpers/db/database.js
 // FIXME - Fix date and time in docker container
@@ -107,6 +108,9 @@ client.db = db;
 createTables(db);
 
 shutdownHandler(client);
+
+/** Verificamos si es la primera vez que se ejecuta el bot */
+checkFirstRun();
 
 /** Login del bot */
 client

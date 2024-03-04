@@ -11,3 +11,5 @@ node_modules
 logs/
 logs/*
 ./logs
+
+first-run.lock
