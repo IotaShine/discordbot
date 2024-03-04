@@ -8,12 +8,14 @@ module.exports = {
             .setName("personaje")
             .setDescription("Nombre del personaje")
             .setRequired(true),
-        ),
+        )
+        .setNSFW(true),
 
     /** Sends a random image from r34 api
     * @param {import("discord.js").CommandInteraction} interaction
     */
     async execute(interaction) {
+        if (!interaction.channel.nsfw) return await interaction.reply("Este comando solo puede ser usado en canales NSFW");
         await interaction.deferReply();
         const character = interaction.options.getString("personaje");
         try {
