@@ -5,7 +5,7 @@ const limit = 500;
  * @param {string} tags
  */
 const r34Helper = async (tags) => {
-    tags = tags.replace(/ /g, "_");
+    tags = tags.trim().replace(/ /g, "_");
     const url = `https://api.rule34.xxx/index.php?page=dapi&s=post&q=index&json=1&limit=${limit}&tags=${tags} -ai_generated`;
 
     return new Promise((resolve, reject) => {
