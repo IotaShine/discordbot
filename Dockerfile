@@ -5,10 +5,9 @@ RUN mkdir /bot
 RUN mkdir -p /bot/database
 
 WORKDIR /bot
-COPY ./commands commands/
-COPY ./events events/
-COPY ./helpers helpers/
-COPY index.js package.json deploy-commands-global.js ./
+COPY ./src src/
+COPY ./scripts scripts/
+COPY index.js package.json ./
 
 RUN npm install --omit=dev
 

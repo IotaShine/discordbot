@@ -1,8 +1,8 @@
 const fs = require("node:fs");
 const path = require("node:path");
 const { REST, Routes } = require("discord.js");
-const { logger } = require("./helpers");
-require("dotenv").config();
+const { logger } = require("../src/helpers");
+require("dotenv").config({ path: path.join(__dirname, "../.env") });
 
 const TOKEN = process.env.TOKEN;
 const GUILD_ID = process.env.GUILD_ID;
@@ -10,7 +10,7 @@ const CLIENT_ID = process.env.CLIENT_ID;
 
 const commands = [];
 
-const foldersPath = path.join(__dirname, "commands");
+const foldersPath = path.join(__dirname, "../src/commands");
 const commandFolders = fs.readdirSync(foldersPath);
 
 for (const folder of commandFolders) {

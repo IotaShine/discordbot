@@ -5,8 +5,8 @@ const { Player } = require("discord-player");
 const { YoutubeExtractor } = require("@discord-player/extractor");
 require("dotenv").config();
 const { ACTIVITY, STATUS, TOKEN, CLIENT_ID } = process.env;
-const { logger, createTables, shutdownHandler } = require("./helpers");
-const db = require("./helpers/db/database");
+const { logger, createTables, shutdownHandler } = require("./src/helpers");
+const db = require("./src/helpers/db/database");
 
 // FIXME - Remove the db from the client and use the db from the helpers/db/database.js
 // FIXME - Fix date and time in docker container
@@ -42,7 +42,7 @@ const client = new Client({
 
 /** Importar todos los comandos */
 client.commands = new Collection();
-const foldersPath = path.join(__dirname, "commands");
+const foldersPath = path.join(__dirname, "src/commands");
 const commandFolders = fs.readdirSync(foldersPath);
 
 /** Iteramos las carpetas */
@@ -71,7 +71,7 @@ for (const folder of commandFolders) {
 }
 
 /** Importar todos los eventos */
-const eventsPath = path.join(__dirname, "events");
+const eventsPath = path.join(__dirname, "src/events");
 const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith(".js"));
 
 for (const file of eventFiles) {

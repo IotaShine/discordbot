@@ -1,7 +1,7 @@
 const pino = require("pino");
 const path = require("path");
 
-const logDirectory = path.join(__dirname, "../../logs/bot.log");
+const logDirectory = path.join(__dirname, "../../../logs/bot.log");
 
 const transport = pino.transport({
     targets: [
