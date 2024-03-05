@@ -101,10 +101,6 @@ player.on("error", (queue, error) => {
 });
 
 /** Inicializamos y agregamos la base de datos */
-/** 
- * FIXME - Remove the db from the client and use the db from the helpers/db/database.js
- */
-client.db = db;
 createTables(db);
 
 shutdownHandler(client);

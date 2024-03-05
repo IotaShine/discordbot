@@ -2,7 +2,7 @@ const { EmbedBuilder } = require("discord.js");
 const { Track } = require("discord-player");
 const { useMainPlayer } = require("discord-player");
 const logger = require("../config/logger");
-const db = require("../config/database");
+const db = require("../db/database");
 
 /**
  * Retrieves the playlist from the database

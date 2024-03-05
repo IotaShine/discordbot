@@ -1,4 +1,5 @@
 const logger = require("../config/logger");
+const db = require("../db/database");
 
 /** Agrega un hook al evento de shutdown para cerrar la base de datos y desloguearse
  * @param {import("discord.js").Client} client 
@@ -7,8 +8,8 @@ function shutdownHandler(client) {
     function gracefulShutdown() {
         logger.info("Shutting down gracefully...");
 
-        if (client.db) {
-            client.db.close(() => {
+        if (db) {
+            db.close(() => {
                 logger.info("Database connection closed.");
             });
         }

@@ -1,6 +1,6 @@
 const { EmbedBuilder } = require("discord.js");
 const logger = require("../config/logger");
-const db = require("../config/database");
+const db = require("../db/database");
 
 /**
  * Deletes the playlist from the database
