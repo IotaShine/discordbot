@@ -56,6 +56,8 @@ module.exports = {
                     option
                         .setName("playlist")
                         .setDescription("name of the playlist")
+                        .setMaxLength(20)
+                        .setMinLength(2)
                         .setRequired(true),
                 ),
         ),

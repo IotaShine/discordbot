@@ -35,7 +35,7 @@ module.exports = {
                     .setTitle("🎵 **[ PLAYLIST ]** 🎵")
                     .setFields([
                         { name: "Playlist", value: track.playlist.title, inline: true },
-                        { name: "Added", value: track.playlist.tracks.length, inline: true },
+                        { name: "Added", value: `${track.playlist.tracks.length} songs to the queue`, inline: true },
                     ])
                     .setImage(track.thumbnail)
                     .setFooter({ text: `Requested by ${interaction.user.tag}` });

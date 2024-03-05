@@ -12,14 +12,17 @@ const deletePlaylist = async (owner, nombre) => {
 
     return new Promise((resolve, reject) => {
         db.serialize(() => {
-            db.run(playlistSqlQuery, [owner, nombre], err => {
+            db.run(playlistSqlQuery, [owner, nombre], function(err) {
                 if (err) {
-                    reject(new Error(err.message));
+                    reject();
+                } else if (this.changes === 0) {
+                    resolve("**[ WARNING ]** Playlist not found");
+                } else {
+                    resolve("**[ SUCCESS ]** Playlist removed");
                 }
             });
         });
 
-        resolve("**[ SUCCESS ]** Playlist removed");
     });
 };
 
