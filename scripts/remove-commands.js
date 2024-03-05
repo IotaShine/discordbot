@@ -1,6 +1,7 @@
 const { REST, Routes } = require("discord.js");
 const { logger } = require("../src/helpers");
-require("dotenv").config({ path: "../.env" });
+const path = require("path");
+require("dotenv").config({ path: path.join(__dirname, "../.env") });
 
 const TOKEN = process.env.TOKEN;
 const GUILD_ID = process.env.GUILD_ID;
