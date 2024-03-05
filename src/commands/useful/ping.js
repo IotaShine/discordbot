@@ -18,7 +18,7 @@ module.exports = {
 
         } catch (error) {
             logger.error(error, "Error in ping command");
-            return await interaction.reply("Ocurrió un pequeño errorcito");
+            return await interaction.reply("**[ ERROR ]** There was an error.");
         }
 
     },

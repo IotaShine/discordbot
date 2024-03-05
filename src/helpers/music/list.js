@@ -31,7 +31,7 @@ const list = async (interaction) => {
         const data = await requestPlaylists(client, user_id);
 
         if (!data.length) {
-            return await interaction.followUp("No hay playlists guardadas");
+            return await interaction.followUp("**[ NOTICE ]** You don't have any saved playlists.");
         }
 
         const msj = await data
@@ -46,16 +46,16 @@ const list = async (interaction) => {
         return await interaction.followUp({
             embeds: [
                 new EmbedBuilder()
-                    .setTitle("Playlists")
+                    .setTitle("**[ PLAYLISTS ]**")
                     .setColor("Random")
                     .setDescription(msj)
-                    .setFooter({ text: `Cantidad: ${data.length}` })
+                    .setFooter({ text: `Amount: ${data.length}` })
                     .setThumbnail(image),
             ],
         });
     } catch (error) {
         logger.error(error, "Error when listing playlists");
-        return await interaction.followUp(error);
+        return await interaction.followUp("**[ ERROR ]** There was an error listing the playlists.");
     }
 };
 

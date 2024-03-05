@@ -5,7 +5,7 @@ const { useQueue, QueueRepeatMode } = require("discord-player");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("loop")
-        .setDescription("loop la musiquita que esta sonando"),
+        .setDescription("I repeat the queue until time itself ceases to exist."),
 
     /**
      * @param {import("discord.js").CommandInteraction} interaction
@@ -15,21 +15,21 @@ module.exports = {
             const queue = useQueue(interaction.guild.id);
 
             if (!queue || !queue.currentTrack) {
-                await interaction.reply("No hay nada sonando para repetir");
+                await interaction.reply("**[ NOTICE ]** There's no music to loop.");
                 return;
             }
 
             if (queue.repeatMode === QueueRepeatMode.QUEUE) {
                 queue.setRepeatMode(QueueRepeatMode.OFF);
-                return await interaction.reply("La musiquita no se va a repetir más");
+                return await interaction.reply("**[ SUCCESS ]** I stopped looping the queue.");
             }
 
             queue.setRepeatMode(QueueRepeatMode.QUEUE);
-            await interaction.reply("La musiquita se va a repetir hasta que te canses");
+            await interaction.reply("**[ SUCCESS ]** I'll loop the queue until time itself ceases to exist.");
 
         } catch (error) {
             logger.error(error, "Error in loop command");
-            await interaction.reply("Me cagué, no pude hacerlo.");
+            await interaction.reply("**[ ERROR ]** There was an error looping the queue.");
         }
 
     },

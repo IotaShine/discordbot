@@ -3,8 +3,8 @@ const escrituras = require("../../helpers/meme/escrituras.json");
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("sabiduría")
-        .setDescription("Sabiduría"),
+        .setName("knowledge")
+        .setDescription("I send you a random bit of knowledge from my records."),
 
     /** Sends a random escritura
     * @param {import("discord.js").CommandInteraction} interaction

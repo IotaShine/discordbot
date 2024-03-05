@@ -4,11 +4,11 @@ const { logger } = require("../../helpers/");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("user")
-        .setDescription("Mencioname a uno y te tiro la data")
+        .setDescription("I inspect a user for you.")
         .addUserOption((option) =>
             option
                 .setName("user")
-                .setDescription("El usuario del que queres la data.")
+                .setDescription("The user you want info in.")
                 .setRequired(true),
         ),
 
@@ -17,9 +17,10 @@ module.exports = {
     */
     async execute(interaction) {
         const member = interaction.options.getMember("user");
+        const color = interaction.options.getUser("user").accentColor || "Random";
 
         if (!member) {
-            return interaction.reply({ content: "You did not mention a user!", ephemeral: true });
+            return interaction.reply({ content: "**[ NOTICE ]** You didn't mention a user", ephemeral: true });
         }
 
         const userRoles = member.roles.cache
@@ -31,21 +32,21 @@ module.exports = {
             .setTitle(`${member.user.tag}'s Information`)
             .setThumbnail(member.user.displayAvatarURL())
             .addFields(
-                { name: "Username", value: member.user.username, inline: true },
-                { name: "User ID", value: member.user.id, inline: true },
-                { name: "Bot", value: member.user.bot ? "Si" : "No", inline: true },
-                { name: "Fecha de Creación", value: member.user.createdAt.toDateString(), inline: true },
-                { name: "Fecha de union al servidor", value: member.joinedAt.toDateString(), inline: true },
-                { name: "Roles", value: userRoles, inline: false },
+                { name: "**[ USERNAME ]**", value: member.user.username, inline: true },
+                { name: "**[ USER ID ]**", value: member.user.id, inline: true },
+                { name: "**[ BOT ]**", value: member.user.bot ? "Si" : "No", inline: true },
+                { name: "**[ CREATION DATE ]**", value: member.user.createdAt.toDateString(), inline: true },
+                { name: "**[ SERVER JOIN DATE ]**", value: member.joinedAt.toDateString(), inline: true },
+                { name: "**[ ROLES ]**", value: userRoles, inline: false },
             )
-            .setColor("Random");
+            .setColor(color);
 
 
         try {
             return interaction.reply({ embeds: [embed] });
         } catch (error) {
             logger.error(error, "Error in user command");
-            await interaction.reply("Salio para el orto esto no se que onda hubo un error");
+            await interaction.reply("**[ ERROR ]** There was an error getting the user info.");
         }
     },
 };

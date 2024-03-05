@@ -29,7 +29,7 @@ const playlistPlay = async (client, user_id, nombre) => {
 */
 const play = async (interaction) => {
     if (!interaction.member.voice.channel) {
-        return await interaction.reply("No estas en un canal de voz salame");
+        return await interaction.reply("**[ NOTICE ]** You need to be in a voice channel.");
     }
 
     const player = useMainPlayer();
@@ -49,14 +49,14 @@ const play = async (interaction) => {
         const request = await playlistPlay(client, user_id, nombre);
 
         if (!request || request == undefined) {
-            return await interaction.followUp("No existe una playlist con ese nombre");
+            return await interaction.followUp("**[ NOTICE ]** There isn't a playlist with that name.");
         }
 
         const temas = await JSON.parse(request.songs);
         const playlist = await temas.map(song => new Track(player, { ...song }));
 
         const embed = new EmbedBuilder()
-            .setTitle(`Dándole a play a ${nombre}`)
+            .setTitle(`Starting to play: **【${nombre}】**`)
             .setColor("Random")
             .setThumbnail(playlist[0].thumbnail)
             .setDescription(
@@ -67,18 +67,18 @@ const play = async (interaction) => {
                     })
                     .join("\n"),
             )
-            .setFooter({ text: "Solo se muestran las primeras 10 canciones" });
+            .setFooter({ text: "Only the first 10 song appear." });
 
         await queue.play(playlist[0]);
         playlist.shift();
-        await queue.addTrack(playlist);
+        queue.addTrack(playlist);
 
         return interaction.followUp({
             embeds: [embed],
         });
     } catch (error) {
         logger.error(error, "Error al intentar reproducir la playlist");
-        return interaction.followUp(error.message || "Ocurrió un error al intentar reproducir la playlist");
+        return interaction.followUp("**[ ERROR ]** There was an error playing the playlist.");
     }
 };
 

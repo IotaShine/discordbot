@@ -5,11 +5,10 @@ const { logger } = require("../../helpers/");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("playnext")
-        .setDescription("Te agrego la cancion a la cola pero antes de todas las demás")
+        .setDescription("The next song you wish to play.")
         .addStringOption(option =>
             option
-                .setName("cancion")
-                .setDescription("canción")
+                .setName("song")
                 .setRequired(true),
         ),
 
@@ -18,7 +17,7 @@ module.exports = {
     */
     async execute(interaction) {
         if (!interaction.member.voice.channel) {
-            await interaction.reply("No estas en un canal de voz salame");
+            await interaction.reply("**[ NOTICE ]** You need to be in a voice channel.");
             return;
         }
 
@@ -32,24 +31,24 @@ module.exports = {
         await interaction.deferReply();
 
         try {
-            const request = interaction.options.getString("cancion");
+            const request = interaction.options.getString("song");
 
             const searchResult = await player.search(request);
-            if (searchResult.isEmpty()) return interaction.followUp("No se encontraron resultados");
-            const track = await searchResult.tracks[0];
+            if (searchResult.isEmpty()) return interaction.followUp("**[ NOTICE ]** No results found.");
+            const track = searchResult.tracks[0];
             queue.insertTrack(track, 0);
 
             const embed = new EmbedBuilder()
-                .setColor("Red")
-                .setTitle("Añadida cancion")
-                .setDescription(`Añadido **[${track.title}]** a la cola`)
+                .setTitle("🎵 **[ ADDED ]** 🎵")
+                .setDescription(`**[${track.title}]**\nHas been added to the queue.`)
                 .setImage(track.thumbnail)
-                .setFooter({ text: `Duración: ${track.duration}` });
+                .setColor("Red")
+                .setFooter({ text: `Duration: ${track.duration}` });
 
             return interaction.followUp({ embeds: [embed] });
         } catch (error) {
             logger.error(error, "Error in playnext command");
-            return interaction.followUp("Ando mal de la panza y hubo un error :nauseated_face:");
+            return interaction.followUp("**[ ERROR ]** There was an error playing the song.");
         }
     },
 };

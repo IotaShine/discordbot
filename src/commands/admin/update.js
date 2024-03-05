@@ -6,16 +6,16 @@ const updateGlobalCommands = require("../../../scripts/deploy-commands-global");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("update")
-        .setDescription("Update the bot's commands")
+        .setDescription("Update my commands.")
         .addSubcommand(subcommand =>
             subcommand
                 .setName("guild")
-                .setDescription("Update the guild's commands"),
+                .setDescription("Only for the dev server. Update the guild commands."),
         )
         .addSubcommand(subcommand =>
             subcommand
                 .setName("global")
-                .setDescription("Update the global commands"),
+                .setDescription("Update the global commands."),
         )
         .setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator),
     /**
@@ -23,20 +23,19 @@ module.exports = {
      */
     async execute(interaction) {
         const ownerId = process.env.OWNERID;
-        if (!ownerId) return interaction.reply("No se quien es el dueño del bot, no voy a ejecutar ese comando.");
+        if (!ownerId) return interaction.reply("**[ ERROR ]** I can't seem to find my owner.");
 
         const userId = interaction.user.id;
 
-        if (userId !== ownerId) return interaction.reply("No tienes permisos para ejecutar este comando.");
-
+        if (userId !== ownerId) return interaction.reply("**[ ERROR ]** You're not my owner.");
         const subcommand = interaction.options.getSubcommand();
 
         if (subcommand === "guild") {
             updateGuildCommands();
-            interaction.reply("Comandos de este servidor actualizados.");
+            interaction.reply("**[ NOTICE ]** Server commands updated.");
         } else if (subcommand === "global") {
             updateGlobalCommands();
-            interaction.reply("Comandos globales actualizados.");
+            interaction.reply("**[ NOTICE ]** Global commands updated.");
         }
     },
 };

@@ -1,23 +1,22 @@
-const { SlashCommandBuilder } = require("discord.js");
+const { SlashCommandBuilder, PermissionsBitField } = require("discord.js");
 require("dotenv").config();
 const { OWNERID } = process.env;
 const { logger } = require("../../helpers");
-const { PermissionsBitField } = require("discord.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("kick")
-        .setDescription("Expulsa a un usuario.")
+        .setDescription("I kick the user you specify me.")
         .addUserOption((option) =>
             option
                 .setName("user")
-                .setDescription("El usuario que queres expulsar.")
+                .setDescription("The target user to kick")
                 .setRequired(true),
         )
         .addStringOption((option) =>
             option
                 .setName("reason")
-                .setDescription("La razón por la que queres expulsar al usuario."),
+                .setDescription("You don't need one but it would be nice to have one."),
         ).setDefaultMemberPermissions(PermissionsBitField.Flags.KickMembers),
 
     /** Kicks a user
@@ -30,31 +29,31 @@ module.exports = {
         const owner = OWNERID ?? "-7";
 
         if (!interaction.member.permissions.has("KICK_MEMBERS") && interaction.user.id !== owner) {
-            return await interaction.reply("No tenes permisos para expulsar usuarios.");
+            return await interaction.reply("**[ WARNING ]** You don't have the necessary permissions to use this command.");
         }
 
         if (user.id === interaction.user.id) {
-            return await interaction.reply("No te podes expulsar a vos mismo.");
+            return await interaction.reply("**[ NOTICE ]** You can't kick yourself.");
         }
 
         if (user.id === interaction.client.user.id) {
-            return await interaction.reply("No me podes expulsar a mi.");
+            return await interaction.reply("**[ WARNING ]** Don't even think about it.");
         }
 
         if (user.id === owner) {
-            return await interaction.reply("No te hagas el piola, no podes expulsar al dueño del bot.");
+            return await interaction.reply("**[ WARNING ]** You can't kick the owner.");
         }
 
         if (!user.kickable) {
-            return await interaction.reply("No puedo expulsar a este usuario.");
+            return await interaction.reply("**[ WARNING ]** I can't kick this user.");
         }
 
         try {
             await user.kick(reason);
-            return await interaction.reply(`Expulsado a ${user.tag} por ${reason}`);
+            return await interaction.reply(`**[ SUCCESS ]** ${user.tag} has been kicked.`);
         } catch (error) {
             logger.error(error, "Error in kick command");
-            return await interaction.reply("Ocurrió un error");
+            return await interaction.reply("**[ ERROR ]** Something went wrong in the process.");
         }
     },
 };

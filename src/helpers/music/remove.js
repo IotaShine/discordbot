@@ -20,7 +20,7 @@ const deletePlaylist = async (client, owner, nombre) => {
             });
         });
 
-        resolve("Playlist eliminada");
+        resolve("**[ SUCCESS ]** Playlist removed");
     });
 };
 
@@ -32,7 +32,7 @@ const remove = async (interaction) => {
     try {
         const { client } = interaction;
         const user_id = interaction.user.id;
-        const nombre = await interaction.options.getString("nombre");
+        const nombre = await interaction.options.getString("name");
         const a = await deletePlaylist(client, user_id, nombre);
 
         if (a instanceof Error) throw a;
@@ -40,7 +40,10 @@ const remove = async (interaction) => {
         return await interaction.reply(a);
     } catch (error) {
         logger.error(error);
-        const embed = new EmbedBuilder().setTitle("Error").setDescription(error.message).setColor("Red");
+        const embed = new EmbedBuilder()
+            .setTitle("**[ ERROR ]**")
+            .setDescription("Something bad happened and I wasn't able to remove the playlist.")
+            .setColor("Red");
         return await interaction.reply({ embeds: [embed] });
     }
 };

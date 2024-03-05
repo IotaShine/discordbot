@@ -38,7 +38,7 @@ const add = async (interaction) => {
         const { client } = interaction;
         const player = useMainPlayer();
 
-        const cancion = await interaction.options.getString("cancion");
+        const cancion = await interaction.options.getString("song");
         const playlist = await interaction.options.getString("playlist");
         const user_id = interaction.user.id;
 

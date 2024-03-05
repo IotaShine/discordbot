@@ -4,8 +4,8 @@ const logger = require("../config/logger");
 
 /**
  * Creates a playlist in the database
- * @param {Client} client
- * @param {Track[]} tracks
+ * @param {import("discord.js").Client} client
+ * @param {import("discord-player").Track[]} tracks
  * @param {string} owner
  * @param {string} nombre
  */
@@ -26,14 +26,14 @@ const createPlaylist = async (client, tracks, owner, nombre) => {
             db.run(playlistSqlQuery, [owner, nombre, JSON.stringify(tracks)], err => {
                 if (err) {
                     if (err.code === "SQLITE_CONSTRAINT") {
-                        reject(new Error("Ya tienes una playlist con ese nombre"));
+                        reject(err.code);
                     }
-                    reject(new Error(err.message));
+                    reject();
                 }
             });
         });
 
-        resolve("Playlist creada");
+        resolve();
     });
 
 };
@@ -45,15 +45,15 @@ const createPlaylist = async (client, tracks, owner, nombre) => {
  */
 const save = async (interaction, guild) => {
     if (!interaction.member.voice.channel) {
-        return await interaction.reply("No estas en un canal de voz salame");
+        return await interaction.reply("**[ NOTICE ]** You need to be in a voice channel.");
     }
 
     try {
         const queue = useQueue(guild);
-        if (!queue) return await interaction.reply("No hay nada sonando master", { ephemeral: true });
+        if (!queue) return await interaction.reply("**[ NOTICE ]** There's nothing playing.", { ephemeral: true });
 
         await interaction.deferReply({ ephemeral: true });
-        const nombre = await interaction.options.getString("nombre");
+        const nombre = await interaction.options.getString("name");
 
         const { currentTrack } = queue;
         const tracks = [currentTrack, ...queue.tracks.data];
@@ -74,7 +74,7 @@ const save = async (interaction, guild) => {
         return await interaction.followUp({
             embeds: [
                 new EmbedBuilder()
-                    .setTitle(`Playlist ${nombre} creada`)
+                    .setTitle(`Playlist **【${nombre}】** created`)
                     .setDescription(`**[${canciones}]**`)
                     .setColor("Random")
                     .setFooter({
@@ -84,7 +84,15 @@ const save = async (interaction, guild) => {
         });
     } catch (error) {
         logger.error(error);
-        const embed = new EmbedBuilder().setTitle("Error").setDescription(error.message).setColor("Red");
+        const embed = new EmbedBuilder()
+            .setTitle("**[ ERROR ]**")
+            .setDescription("**[ ERROR ]** There was an error saving the playlist.")
+            .setColor("Red");
+
+        if (error === "SQLITE_CONSTRAINT") {
+            embed.setDescription("**[ ERROR ]** There's already a playlist with that name.");
+        }
+
         return await interaction.followUp({ embeds: [embed] });
     }
 };

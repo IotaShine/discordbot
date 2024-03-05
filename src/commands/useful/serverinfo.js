@@ -4,7 +4,7 @@ const { logger } = require("../../helpers/");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("serverinfo")
-        .setDescription("te tiro la data sobre el server este"),
+        .setDescription("I inspect the server for you."),
 
     /** Sends the server info
     * @param {import("discord.js").CommandInteraction} interaction
@@ -22,24 +22,24 @@ module.exports = {
             const embed = new EmbedBuilder()
                 .setTitle(`${name}'s Information`)
                 .addFields(
-                    { name: "Nombre del server", value: name },
-                    { name: "Server ID", value: String(id) },
-                    { name: "Cantidad de miembros", value: String(memberCount) },
-                    { name: "Fecha de Creación", value: String(createdAt.toDateString()) },
-                    { name: "Server Owner", value: ownerUser.user.tag },
-                    { name: "Nivel de Boost", value: String(premiumTier) },
-                    { name: "Cantidad de Boosts", value: String(premiumSubscriptionCount) },
-                    { name: "Verification Level", value: String(verificationLevel) },
-                    { name: "Cantidad de Canales de Texto", value: String(textChannels) },
-                    { name: "Cantidad de Canales de Voz", value: String(voiceChannels) },
-                    { name: "Cantidad de roles", value: String(roleCount) },
+                    { name: "[ SERVER NAME ]", value: name },
+                    { name: "[ SERVER ID ]", value: String(id) },
+                    { name: "[ MEMBER COUNT ]", value: String(memberCount) },
+                    { name: "[ CREATION DATE ]", value: String(createdAt.toDateString()) },
+                    { name: "[ SERVER OWNER ]", value: ownerUser.user.tag },
+                    { name: "[ BOOST LEVEL ]", value: String(premiumTier) },
+                    { name: "[ BOOST AMOUNT ]", value: String(premiumSubscriptionCount) },
+                    { name: "[ VERIFICATION LEVEL ]", value: String(verificationLevel) },
+                    { name: "[ TEXT CHANNELS AMOUNT ]", value: String(textChannels) },
+                    { name: "[ VOICE CHANNELS AMOUNT ]", value: String(voiceChannels) },
+                    { name: "[ ROLE AMOUNT ]", value: String(roleCount) },
                 )
                 .setColor("Random");
 
             return interaction.reply({ embeds: [embed] });
         } catch (error) {
             logger.error(error, "Error in serverinfo command");
-            await interaction.reply("Salio para el orto esto no se que onda hubo un error");
+            await interaction.reply("**[ ERROR ]** There was an error getting the server info.");
         }
     },
 };

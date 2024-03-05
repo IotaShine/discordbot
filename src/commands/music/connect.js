@@ -5,14 +5,14 @@ const { logger } = require("../../helpers/");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("connect")
-        .setDescription("Me conecto al canal en el que estas vos."),
+        .setDescription("I connect to the your voice channel"),
 
     /** Connects to the voice channel
     * @param {import("discord.js").CommandInteraction} interaction
     */
     async execute(interaction) {
         if (!interaction.member.voice.channel) {
-            return await interaction.reply("No estas en un canal de voz salame");
+            return await interaction.reply("**[ WARNING ]** You need to be in a voice channel.");
         }
 
         // TODO - Pedirle a alguien a que me ayude a probar esto
@@ -20,7 +20,7 @@ module.exports = {
         const currentQueue = player.queues.get(interaction.guild.id);
         if (currentQueue && currentQueue.connection) {
             return await interaction.reply(
-                `Ya estoy conectado a ${currentQueue.connection.channel}`,
+                `**[ NOTICE ]** I'm already in ${currentQueue.connection.channel}`,
             );
         }
 
@@ -32,11 +32,11 @@ module.exports = {
             }
 
             return await interaction.reply(
-                `Conectado a ${interaction.member.voice.channel}`,
+                `**[ NOTICE ]** Connected to ${interaction.member.voice.channel}`,
             );
         } catch (error) {
             logger.error(error, "Error in connect command");
-            return await interaction.reply("Ocurrió un error");
+            return await interaction.reply("**[ ERROR ]** There was an error connecting to the voice channel.");
         }
     },
 };

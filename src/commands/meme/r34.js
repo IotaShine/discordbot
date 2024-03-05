@@ -3,10 +3,10 @@ const { logger, r34Helper } = require("../../helpers/");
 
 module.exports = {
     data: new SlashCommandBuilder().setName("r34")
-        .setDescription("ruleta de r34 del personaje deseado")
+        .setDescription("I send you a random image from r34. Perfect for degenerates like you.")
         .addStringOption(option => option
-            .setName("personaje")
-            .setDescription("Nombre del personaje")
+            .setName("tag")
+            .setDescription("Character or tag to search for.")
             .setRequired(true),
         )
         .setNSFW(true),
@@ -15,17 +15,17 @@ module.exports = {
     * @param {import("discord.js").CommandInteraction} interaction
     */
     async execute(interaction) {
-        if (!interaction.channel.nsfw) return await interaction.reply("Este comando solo puede ser usado en canales NSFW");
+        if (!interaction.channel.nsfw) return await interaction.reply("**[ WARNING ]** This command can only be used in NSFW channels.");
         await interaction.deferReply();
-        const character = interaction.options.getString("personaje");
+        const character = interaction.options.getString("tag");
         try {
             const img = await r34Helper(`${character} `);
             return interaction.followUp(
-                { content: `Imagen aleatoria de ${character}`, files: [img] },
+                { content: `**[ NOTICE ]** Image from ${character} attached`, files: [img] },
             );
         } catch (error) {
             logger.error(error, "Error in r34 command");
-            await interaction.followUp("Ocurrió un error");
+            await interaction.followUp("**[ ERROR ]** Something unexpected has happened.");
         }
     },
 };

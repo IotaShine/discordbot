@@ -23,12 +23,12 @@ module.exports = {
             logger.error(error, "Error executing command");
             if (interaction.replied || interaction.deferred) {
                 return await interaction.followUp({
-                    content: "Hubo un error al ejecutar este comando",
+                    content: "[ ERROR ] There was an error executing this command.",
                     ephemeral: true,
                 });
             }
             await interaction.reply({
-                content: "Hubo un error al ejecutar este comando",
+                content: "**[ ERROR ]** There was an error executing this command.",
                 ephemeral: true,
             });
 

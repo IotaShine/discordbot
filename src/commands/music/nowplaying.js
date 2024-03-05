@@ -5,7 +5,7 @@ const { logger } = require("../../helpers/");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("nowplaying")
-        .setDescription("que pija estas escuchando"),
+        .setDescription("I show you the current track."),
 
 
     /** Sends the current track
@@ -13,31 +13,31 @@ module.exports = {
     */
     async execute(interaction) {
         if (!interaction.member.voice.channel) {
-            await interaction.reply("No estas en un canal de voz salame");
+            await interaction.reply("**[ WARNING ]** You need to be in a voice channel.");
             return;
         }
 
         await interaction.deferReply();
         const queue = useQueue(interaction.guild.id);
-        if (!queue) return await interaction.followUp("No hay nada sonando, imbécil");
+        if (!queue) return await interaction.followUp("**[ NOTICE ]** No music is playing.");
 
         try {
             const { currentTrack } = queue;
-            if (!currentTrack) throw new Error("Now playing track not found");
+            if (!currentTrack) throw new Error();
 
             return await interaction.followUp({
                 embeds: [
                     new EmbedBuilder()
-                        .setTitle("Esta sonando:")
+                        .setTitle("**[ CURRENT TRACK ]**")
                         .setDescription(`[${currentTrack.raw.title}](${currentTrack.url})`)
-                        .setFooter({ text: `Duración: [${currentTrack.duration}]` })
+                        .setFooter({ text: `Duration: **[ ${currentTrack.duration} ]**` })
                         .setThumbnail(currentTrack.thumbnail)
                         .setColor("Random"),
                 ],
             });
         } catch (error) {
             logger.error(error, "Error in nowplaying command");
-            return await interaction.followUp("Ocurrió un error al ejecutar el comando");
+            return await interaction.followUp("**[ ERROR ]** There was an error getting the current track.");
         }
     },
 };

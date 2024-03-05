@@ -5,57 +5,57 @@ const { add, play, remove, list, save } = require("../../helpers");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("playlist")
-        .setDescription("guardo, listo o le doy play a una playlist")
+        .setDescription("I handle the playlists.")
         .addSubcommand(subcommand =>
             subcommand
                 .setName("play")
-                .setDescription("le doy play a una playlist que se haya guardado")
+                .setDescription("I add the songs from a playlist to the queue.")
                 .addStringOption(option =>
                     option
                         .setName("playlist")
-                        .setDescription("nombre de la playlist")
+                        .setDescription("playlist name")
                         .setRequired(true),
                 ),
         )
         .addSubcommand(subcommand =>
             subcommand
                 .setName("save")
-                .setDescription("guardo la queue que esta sonando actualmente como playlist")
+                .setDescription("I save the current queue as a playlist.")
                 .addStringOption(option =>
                     option
-                        .setName("nombre")
-                        .setDescription("nombre de la playlist")
+                        .setName("name")
+                        .setDescription("playlist name")
                         .setRequired(true),
                 ),
         )
         .addSubcommand(subcommand =>
             subcommand
                 .setName("list")
-                .setDescription("muestro las playlist que están disponibles para este servidor"),
+                .setDescription("I list your saved playlists."),
         ).addSubcommand(subcommand =>
             subcommand
                 .setName("remove")
-                .setDescription("elimino una playlist que haya guardado")
+                .setDescription("I remove a playlist from your saved playlists.")
                 .addStringOption(option =>
                     option
-                        .setName("nombre")
-                        .setDescription("nombre de la playlist")
+                        .setName("name")
+                        .setDescription("playlist name")
                         .setRequired(true),
                 ),
         ).addSubcommand(subcommand =>
             subcommand
                 .setName("add")
-                .setDescription("agrego una canción a una playlist")
+                .setDescription("I add a song to an existing playlist.")
                 .addStringOption(option =>
                     option
-                        .setName("cancion")
-                        .setDescription("nombre o url de la canción")
+                        .setName("song")
+                        .setDescription("name or url of the song")
                         .setRequired(true),
                 )
                 .addStringOption(option =>
                     option
                         .setName("playlist")
-                        .setDescription("nombre de la playlist")
+                        .setDescription("name of the playlist")
                         .setRequired(true),
                 ),
         ),
@@ -65,7 +65,7 @@ module.exports = {
      */
     async execute(interaction) {
         const command = await interaction.options.getSubcommand();
-        const guild = await interaction.guild.id;
+        const guild = interaction.guild.id;
 
         switch (command) {
             case "play":
@@ -85,7 +85,7 @@ module.exports = {
                 break;
 
             default:
-                interaction.followUp("No se que hacer");
+                interaction.followUp("**[ ERROR ]** There was an error with the playlist command.");
                 break;
         }
     },

@@ -3,24 +3,24 @@ const { useQueue } = require("discord-player");
 const { logger } = require("../../helpers/");
 
 module.exports = {
-    data: new SlashCommandBuilder().setName("queue").setDescription("muestra que esta en cola"),
+    data: new SlashCommandBuilder().setName("queue").setDescription("I show you the queue."),
 
     /**
      * @param {import("discord.js").CommandInteraction} interaction 
      */
     async execute(interaction) {
         if (!interaction.member.voice.channel) {
-            await interaction.reply("No estas en un canal de voz salame");
+            await interaction.reply("**[ NOTICE ]** You need to be in a voice channel.");
             return;
         }
 
         const queue = useQueue(interaction.guild.id);
-        if (!queue) return await interaction.reply("La cola esta vacía negro");
+        if (!queue) return await interaction.reply("**[ NOTICE ]** No music is playing.");
 
         const { data } = queue.tracks;
 
         if (!data || data.length === 0) {
-            return await interaction.reply("La cola esta vacía negro");
+            return await interaction.reply("**[ NOTICE ]** No music is playing.");
         }
 
         await interaction.deferReply();
@@ -42,16 +42,16 @@ module.exports = {
                     new EmbedBuilder()
                         .setColor("Random")
                         .setThumbnail(currentTrack.thumbnail)
-                        .setTitle("Canciones en cola")
+                        .setTitle("**[ QUEUE ]**")
                         .setDescription(canciones)
                         .setFooter({
-                            text: `Canciones en cola: ${songs.length}\nDuración: ${durationFormatted}`,
+                            text: `Song in the queue: ${songs.length}\nDuration: ${durationFormatted}`,
                         }),
                 ],
             });
         } catch (error) {
             logger.error(error, "Error in queue command");
-            return interaction.followUp("Ocurrió un error");
+            return interaction.followUp("**[ ERROR ]** There was an error getting the queue.");
         }
     },
 };

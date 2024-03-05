@@ -5,11 +5,10 @@ const { logger } = require("../../helpers/");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("play")
-        .setDescription("Me pongo modo DJ y me pongo a cantar")
+        .setDescription("I sing you a song.")
         .addStringOption(option =>
             option
-                .setName("cancion")
-                .setDescription("canción")
+                .setName("song")
                 .setRequired(true),
         ),
 
@@ -18,8 +17,8 @@ module.exports = {
     */
     async execute(interaction) {
         const channel = interaction.member.voice.channel;
-        if (!channel) return await interaction.reply("No estas en un canal de voz salame");
-        const query = interaction.options.getString("cancion");
+        if (!channel) return await interaction.reply("**[ NOTICE ]** You need to be in a voice channel.");
+        const query = interaction.options.getString("song");
         const player = useMainPlayer();
 
         await interaction.deferReply();
@@ -32,24 +31,28 @@ module.exports = {
 
             if (track.playlist) {
                 embed
-                    .setTitle("Añadida cancion :notes:")
-                    .setDescription(`Añadido **[ ${track.playlist.title} ]** a la cola`)
+                    .setTitle("🎵 **[ PLAYLIST ]** 🎵")
+                    .setFields([
+                        { name: "Playlist", value: track.playlist.title, inline: true },
+                        { name: "Added", value: track.playlist.tracks.length, inline: true },
+                    ])
                     .setImage(track.thumbnail)
-                    .setFooter({
-                        text: `Añadidas: ${track.playlist.tracks.length} canciones`,
-                    });
+                    .setFooter({ text: `Requested by ${interaction.user.tag}` });
             } else {
                 embed
-                    .setTitle("Añadida cancion")
-                    .setDescription(`Añadido **[${track.title}]** a la cola`)
+                    .setTitle("🎵 **[ TRACK ]** 🎵")
+                    .setFields([
+                        { name: "Title", value: track.title, inline: true },
+                        { name: "Duration", value: track.duration, inline: true },
+                    ])
                     .setImage(track.thumbnail)
-                    .setFooter({ text: `Duración: ${track.duration}` });
+                    .setFooter({ text: `Requested by ${interaction.user.tag}` });
             }
 
             return interaction.followUp({ embeds: [embed] });
         } catch (error) {
             logger.error(error, "Error in play command");
-            return interaction.followUp("Ando mal de la panza y hubo un error :nauseated_face:");
+            return interaction.followUp("**[ ERROR ]** There was an error playing the song.");
         }
     },
 };

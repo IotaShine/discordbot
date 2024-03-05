@@ -4,11 +4,11 @@ const { logger } = require("../../helpers/");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("avatar")
-        .setDescription("te respondo con la fotito del que menciones")
+        .setDescription("I retrieve the avatar of the target user.")
         .addUserOption(option =>
             option
                 .setName("target")
-                .setDescription("The user you want the avatar")
+                .setDescription("The target user")
                 .setRequired(true),
         ),
     /** Retrieves the avatar of the target user
@@ -19,15 +19,15 @@ module.exports = {
             const user = interaction.options.getUser("target");
 
             const img = user.avatarURL({ size: 4096, extension: "png" });
-            if (!img) return await interaction.reply("No pude encontrar la foto de ese usuario.");
+            if (!img) return await interaction.reply("**[ NOTICE ]** I could not find the avatar.");
 
             await interaction.reply({
-                content: `Avatar de ${interaction.options.getUser("target").username}`,
+                content: `${interaction.options.getUser("target").username}'s avatar`,
                 files: [img],
             });
         } catch (error) {
             logger.error(error, "Error in avatar command");
-            await interaction.reply("Na ni idea que paso, pero no pude hacerlo.");
+            await interaction.reply("**[ ERROR ]** There was an error retrieving the avatar.");
         }
     },
 };

@@ -4,11 +4,11 @@ const { getUser, logger } = require("../../helpers");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("level")
-        .setDescription("te tiro la data de que nivel sos")
+        .setDescription("I tell you the level of the user.")
         .addUserOption((option) =>
             option
                 .setName("user")
-                .setDescription("El usuario del que queres saber el nivel")
+                .setDescription("The target user")
                 .setRequired(true),
         ),
 
@@ -18,15 +18,18 @@ module.exports = {
      */
     async execute(interaction) {
         const userOption = interaction.options.getUser("user");
+        if (userOption.id === interaction.client.user.id) {
+            return interaction.reply(`**[ NOTICE ]** ${interaction.client.user}'s is **【MAX lvl】**`);
+        }
         if (userOption.bot) return interaction.reply("Los bots no tienen nivel salamin");
         let rtnMsg = "";
 
         try {
             const user = await getUser(userOption.id);
-            rtnMsg = (`El nivel de **${userOption.displayName}** es **${user.level}** master`);
+            rtnMsg = (`**[ NOTICE ]** ${userOption.displayName} is **【${user.level} lvl】**`);
         } catch (error) {
             logger.error(error);
-            rtnMsg = ("Ocurrió un error al buscar el nivel del usuario");
+            rtnMsg = ("**[ ERROR ]** There was an error retrieving the user's level.");
         }
 
         return interaction.reply(rtnMsg);

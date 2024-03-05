@@ -5,7 +5,7 @@ const { CLIENT_ID } = process.env;
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("invite")
-        .setDescription("comando para invitarme a otros servers"),
+        .setDescription("I send the invite link."),
 
     /** Sends the invite link
     * @param {import("discord.js").CommandInteraction} interaction
@@ -13,11 +13,11 @@ module.exports = {
     async execute(interaction) {
         try {
             await interaction.reply(
-                `Podes invitarme haciendo [click aca](https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&permissions=17740865203414&scope=bot)`,
+                `You can invite me by [clicking here](https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&permissions=17740865203414&scope=bot)`,
             );
         } catch (error) {
             logger.error(error, "Error in invite command");
-            return await interaction.reply("Ocurrió un pequeño errorcito");
+            return await interaction.reply("**[ ERROR ]** There was an error sending the invite link.");
         }
     },
 };

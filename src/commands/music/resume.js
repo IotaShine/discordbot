@@ -5,14 +5,14 @@ const { logger } = require("../../helpers/");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("resume")
-        .setDescription("le doy play de vuelta a la música"),
+        .setDescription("I allow the flow of time and music to continue."),
 
     /** Resumes the current track
     * @param {import("discord.js").CommandInteraction} interaction
     */
     async execute(interaction) {
         if (!interaction.member.voice.channel) {
-            return await interaction.reply("No estas en un canal de voz salame");
+            return await interaction.reply("**[ NOTICE ]** You need to be in a voice channel.");
         }
 
         await interaction.deferReply();
@@ -24,16 +24,16 @@ module.exports = {
             return await interaction.followUp({
                 embeds: [
                     new EmbedBuilder()
-                        .setTitle("Reanudando...")
+                        .setTitle("**[ RESUMING ]**")
                         .setColor("Random")
-                        .setDescription(`**[${currentTrack.raw.title}]** reanudado`)
-                        .setFooter({ text: `Duración: ${currentTrack.duration}` })
+                        .setDescription(`**[${currentTrack.raw.title}]**`)
+                        .setFooter({ text: `Duration: ${currentTrack.duration}` })
                         .setThumbnail(currentTrack.thumbnail),
                 ],
             });
         } catch (error) {
             logger.error(error, "Error in resume command");
-            return await interaction.followUp("Ocurrió un error");
+            return await interaction.followUp("**[ ERROR ]** There was an error resuming the track.");
         }
     },
 };

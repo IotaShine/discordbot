@@ -5,15 +5,15 @@ const userCache = require("../../helpers/db/userCache");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("setlevel")
-        .setDescription("Set the level of a user.")
+        .setDescription("I set the level of the user you specify me.")
         .addUserOption(option =>
             option.setName("user")
-                .setDescription("el usuario al que cambiarle el nivel.")
+                .setDescription("Target user to set level.")
                 .setRequired(true),
         )
         .addIntegerOption(option =>
             option.setName("level")
-                .setDescription("el nivel al que cambiar")
+                .setDescription("The level to set.")
                 .setRequired(true),
         )
         .setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator),
