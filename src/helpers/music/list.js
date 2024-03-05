@@ -1,13 +1,12 @@
 const { EmbedBuilder } = require("discord.js");
 const logger = require("../config/logger");
+const db = require("../config/database");
 
 /** 
  * Requests the playlists from the database
- * @param {import("discord.js").Client} client
  * @param {string} user_id
  */
-const requestPlaylists = async (client, user_id) => {
-    const db = client.db;
+const requestPlaylists = async (user_id) => {
     const sql = "SELECT * FROM playlists WHERE creator = ? ORDER BY playlist_id";
 
     return new Promise((resolve, reject) => {
@@ -26,9 +25,8 @@ const requestPlaylists = async (client, user_id) => {
 const list = async (interaction) => {
     await interaction.deferReply();
     try {
-        const { client } = interaction;
         const user_id = interaction.user.id;
-        const data = await requestPlaylists(client, user_id);
+        const data = await requestPlaylists(user_id);
 
         if (!data.length) {
             return await interaction.followUp("**[ NOTICE ]** You don't have any saved playlists.");

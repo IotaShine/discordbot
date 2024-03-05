@@ -1,14 +1,13 @@
 const { EmbedBuilder } = require("discord.js");
 const logger = require("../config/logger");
+const db = require("../config/database");
 
 /**
  * Deletes the playlist from the database
- * @param {Client} client
  * @param {string} owner
  * @param {string} nombre
  */
-const deletePlaylist = async (client, owner, nombre) => {
-    const db = client.db;
+const deletePlaylist = async (owner, nombre) => {
     const playlistSqlQuery = "DELETE FROM playlists WHERE creator = ? AND nombre = ?";
 
     return new Promise((resolve, reject) => {
@@ -26,14 +25,13 @@ const deletePlaylist = async (client, owner, nombre) => {
 
 /**
  * Handles the discord interaction of removing a playlist
- * @param {CommandInteraction} interaction
+ * @param {import("discord.js").CommandInteraction} interaction
  */
 const remove = async (interaction) => {
+    const user_id = interaction.user.id;
+    const nombre = interaction.options.getString("name");
     try {
-        const { client } = interaction;
-        const user_id = interaction.user.id;
-        const nombre = await interaction.options.getString("name");
-        const a = await deletePlaylist(client, user_id, nombre);
+        const a = await deletePlaylist(user_id, nombre);
 
         if (a instanceof Error) throw a;
 

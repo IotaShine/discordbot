@@ -1,16 +1,15 @@
 const { useQueue } = require("discord-player");
 const { EmbedBuilder } = require("discord.js");
 const logger = require("../config/logger");
+const db = require("../config/database");
 
 /**
  * Creates a playlist in the database
- * @param {import("discord.js").Client} client
  * @param {import("discord-player").Track[]} tracks
  * @param {string} owner
  * @param {string} nombre
  */
-const createPlaylist = async (client, tracks, owner, nombre) => {
-    const db = client.db;
+const createPlaylist = async (tracks, owner, nombre) => {
     const userSqlQuery = "INSERT INTO users (user_id) VALUES(?) ON CONFLICT(user_id) DO NOTHING";
     const playlistSqlQuery = "INSERT INTO playlists (creator, nombre, songs) VALUES(?, ?, ?)";
 
@@ -40,13 +39,13 @@ const createPlaylist = async (client, tracks, owner, nombre) => {
 
 /**
  * Handles the discord interaction of saving the current queue
- * @param {CommandInteraction} interaction
- * @param {Guild} guild
+ * @param {import("discord.js").CommandInteraction} interaction
  */
-const save = async (interaction, guild) => {
+const save = async (interaction) => {
     if (!interaction.member.voice.channel) {
         return await interaction.reply("**[ NOTICE ]** You need to be in a voice channel.");
     }
+    const guild = interaction.guild.id;
 
     try {
         const queue = useQueue(guild);
@@ -65,9 +64,8 @@ const save = async (interaction, guild) => {
             })
             .join("\n");
 
-        const { client } = interaction;
         const user_id = interaction.user.id;
-        const a = await createPlaylist(client, tracks, user_id, nombre);
+        const a = await createPlaylist(tracks, user_id, nombre);
 
         if (a instanceof Error) throw a;
 

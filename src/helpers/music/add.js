@@ -1,16 +1,15 @@
 const { useMainPlayer } = require("discord-player");
 const { EmbedBuilder } = require("discord.js");
 const logger = require("../config/logger");
+const db = require("../config/database");
 
 /** 
  * Adds a song to a playlist
- * @param {import("discord.js").Client} client
  * @param {string} owner
  * @param {string} nombre
  * @param {string} cancion
  */
-const addToPlaylist = async (client, owner, nombre, cancion) => {
-    const db = client.db;
+const addToPlaylist = async (owner, nombre, cancion) => {
     const playlistSqlQuery = "SELECT songs FROM playlists WHERE creator = ? AND nombre = ?";
 
     return new Promise((resolve, reject) => {
@@ -35,7 +34,6 @@ const addToPlaylist = async (client, owner, nombre, cancion) => {
  */
 const add = async (interaction) => {
     try {
-        const { client } = interaction;
         const player = useMainPlayer();
 
         const cancion = await interaction.options.getString("song");
@@ -47,7 +45,7 @@ const add = async (interaction) => {
 
         if (!track) return await interaction.reply("**[ ERROR ]** The song couldn't be found. Maybe try with the URL.");
 
-        const res = await addToPlaylist(client, user_id, playlist, track);
+        const res = await addToPlaylist(user_id, playlist, track);
         if (res instanceof Error) throw res;
 
         const embed = new EmbedBuilder()

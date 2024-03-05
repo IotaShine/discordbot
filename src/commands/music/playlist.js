@@ -65,17 +65,16 @@ module.exports = {
      */
     async execute(interaction) {
         const command = await interaction.options.getSubcommand();
-        const guild = interaction.guild.id;
 
         switch (command) {
             case "play":
-                play(interaction, guild);
+                play(interaction);
                 break;
             case "save":
-                save(interaction, guild);
+                save(interaction);
                 break;
             case "list":
-                list(interaction, guild);
+                list(interaction);
                 break;
             case "remove":
                 remove(interaction);

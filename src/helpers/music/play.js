@@ -2,15 +2,14 @@ const { EmbedBuilder } = require("discord.js");
 const { Track } = require("discord-player");
 const { useMainPlayer } = require("discord-player");
 const logger = require("../config/logger");
+const db = require("../config/database");
 
 /**
  * Retrieves the playlist from the database
- * @param {Client} client
  * @param {string} user_id
  * @param {string} nombre
  */
-const playlistPlay = async (client, user_id, nombre) => {
-    const db = client.db;
+const playlistPlay = async (user_id, nombre) => {
     const sql = "SELECT * FROM playlists WHERE creator = ? AND nombre = ?";
 
     return new Promise((resolve, reject) => {
@@ -25,7 +24,7 @@ const playlistPlay = async (client, user_id, nombre) => {
 
 /**
 * Handles the discord interaction of playing a playlist
-* @param {CommandInteraction} interaction
+* @param {import("discord.js").CommandInteraction} interaction
 */
 const play = async (interaction) => {
     if (!interaction.member.voice.channel) {
@@ -42,11 +41,10 @@ const play = async (interaction) => {
 
     await interaction.deferReply();
 
+    const nombre = interaction.options.getString("playlist");
+    const user_id = interaction.user.id;
     try {
-        const nombre = await interaction.options.getString("playlist");
-        const { client } = interaction;
-        const user_id = interaction.user.id;
-        const request = await playlistPlay(client, user_id, nombre);
+        const request = await playlistPlay(user_id, nombre);
 
         if (!request || request == undefined) {
             return await interaction.followUp("**[ NOTICE ]** There isn't a playlist with that name.");
