@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require("discord.js");
 require("dotenv").config();
 const { OWNERID } = process.env;
 const { logger } = require("../../helpers");
+const { PermissionsBitField } = require("discord.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -17,7 +18,7 @@ module.exports = {
             option
                 .setName("reason")
                 .setDescription("La razón por la que queres expulsar al usuario."),
-        ),
+        ).setDefaultMemberPermissions(PermissionsBitField.Flags.KickMembers),
 
     /** Kicks a user
     * @param {import("discord.js").CommandInteraction} interaction
