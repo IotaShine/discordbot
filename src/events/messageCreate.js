@@ -1,5 +1,5 @@
 const { Events } = require("discord.js");
-const { logger, getUser, createUser, updateUsers } = require("../helpers/");
+const { logger, getUser, updateUsers } = require("../helpers/");
 const db = require("../helpers/db/database");
 const userCache = require("../helpers/db/userCache");
 
@@ -34,19 +34,14 @@ module.exports = {
 
         const author = message.author;
         const user_id = author.id;
-        let user = userCache.get(user_id);
+        let user;
 
-        if (!user) {
-            try {
-                user = await getUser(message, user_id);
-                if (!user) {
-                    user = await createUser(message, user_id);
-                }
-                userCache.set(user_id, { ...user, isDirty: false });
-            } catch (error) {
-                logger.error(error);
-                return;
-            }
+        try {
+            user = await getUser(user_id);
+            userCache.set(user_id, user);
+        } catch (error) {
+            logger.error(error);
+            return;
         }
 
         user.xp += 1;
