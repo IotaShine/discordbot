@@ -9,6 +9,7 @@ module.exports = {
         .addStringOption(option =>
             option
                 .setName("song")
+                .setDescription("The song to play")
                 .setRequired(true),
         ),
 

@@ -5,10 +5,11 @@ const { logger } = require("../../helpers/");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("play")
-        .setDescription("I sing you a song.")
+        .setDescription("i sing you a song.")
         .addStringOption(option =>
             option
                 .setName("song")
+                .setDescription("The song to play")
                 .setRequired(true),
         ),
 
