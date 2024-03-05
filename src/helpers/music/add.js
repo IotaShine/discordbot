@@ -16,7 +16,7 @@ const addToPlaylist = async (client, owner, nombre, cancion) => {
     return new Promise((resolve, reject) => {
         db.get(playlistSqlQuery, [owner, nombre], (err, row) => {
             if (err) return reject(err);
-            if (!row || row === undefined) return reject(new Error("No tienes una playlist con ese nombre"));
+            if (!row || row === undefined) return reject(new Error("**[ ERROR ]** Such playlist doesn't exist."));
 
             const songs = JSON.parse(row.songs);
             songs.push(cancion);
@@ -24,7 +24,7 @@ const addToPlaylist = async (client, owner, nombre, cancion) => {
             const updateSqlQuery = "UPDATE playlists SET songs = ? WHERE creator = ? AND nombre = ?";
             db.run(updateSqlQuery, [JSON.stringify(songs), owner, nombre], err => {
                 if (err) return reject(err);
-                resolve("Canción agregada");
+                resolve();
             });
         });
     });
@@ -43,18 +43,17 @@ const add = async (interaction) => {
         const user_id = interaction.user.id;
 
         const songResult = await player.search(cancion);
-        const track = await songResult.tracks[0];
+        const track = songResult.tracks[0];
 
-        if (!track) return await interaction.reply("No se encontró la canción");
+        if (!track) return await interaction.reply("**[ ERROR ]** The song couldn't be found. Maybe try with the URL.");
 
         const res = await addToPlaylist(client, user_id, playlist, track);
         if (res instanceof Error) throw res;
 
         const embed = new EmbedBuilder()
-            .setTitle(res)
-            .setDescription(`Cancion ${track.title} agregada a la playlist ${playlist}`)
+            .setTitle("**[ SUCCESS ]**")
+            .setDescription(`${track.title}\nwas added to ${playlist}`)
             .setColor("Green");
-
         return await interaction.reply({ embeds: [embed], ephemeral: true });
 
     } catch (error) {
