@@ -6,7 +6,7 @@ module.exports = {
     data: new SlashCommandBuilder().setName("queue").setDescription("I show you the queue."),
 
     /**
-     * @param {import("discord.js").CommandInteraction} interaction 
+     * @param {import("discord.js").CommandInteraction} interaction
      */
     async execute(interaction) {
         if (!interaction.member.voice.channel) {
@@ -32,7 +32,7 @@ module.exports = {
                 .slice(0, 10)
                 .map((s, i) => {
                     const { duration, url } = s;
-                    const { title } = s.raw;
+                    const { title } = s;
                     return `${i + 1}. [${title}](${url}) - [${duration}]`;
                 })
                 .join("\n");

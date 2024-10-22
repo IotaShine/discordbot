@@ -5,10 +5,10 @@
     "main": "index.js",
     "scripts": {
         "bot": "node index.js",
-        "refresh": "node ./deploy-commands.js",
-        "refresh-global": "node ./deploy-commands-global.js",
-        "erase": "node ./remove-commands.js",
-        "erase-global": "node ./remove-commands-global.js",
+        "refresh": "node ./scripts/deploy-commands.js",
+        "refresh-global": "node ./scripts/deploy-commands-global.js",
+        "erase": "node ./scripts/remove-commands.js",
+        "erase-global": "node ./scripts/remove-commands-global.js",
         "dev": "nodemon index.js"
     },
     "author": "IotaShine",
@@ -16,14 +16,14 @@
     "dependencies": {
         "@discord-player/extractor": "^4.4.6",
         "discord-player": "^6.6.7",
+        "discord-player-youtubei": "^1.3.3",
         "discord-voip": "^0.1.3",
         "discord.js": "^14.14.1",
         "dotenv": "^16.4.5",
         "mediaplex": "^0.0.9",
         "pino": "^8.19.0",
         "pino-pretty": "^10.3.1",
-        "sqlite3": "^5.1.7",
-        "ytdl-core": "^4.11.5"
+        "sqlite3": "^5.1.7"
     },
     "devDependencies": {
         "@types/node": "^20.11.21",

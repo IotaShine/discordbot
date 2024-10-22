@@ -22,7 +22,7 @@ module.exports = {
 
             const { node, currentTrack, tracks } = queue;
             const nextTrack = tracks.data[0];
-            const description = nextTrack ? `**[${nextTrack.raw.title}]**\n Is going to play now` : "There is nothing left to play.";
+            const description = nextTrack ? `**[${nextTrack.title}]**\n Is going to play now` : "There is nothing left to play.";
             node.skip();
 
             return await interaction.followUp({

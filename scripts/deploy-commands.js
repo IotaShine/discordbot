@@ -4,8 +4,7 @@ const { REST, Routes } = require("discord.js");
 const { logger } = require("../src/helpers");
 require("dotenv").config({ path: path.join(__dirname, "../.env") });
 
-function updateGuildCommands() {
-
+(function updateGuildCommands() {
     const TOKEN = process.env.TOKEN;
     const GUILD_ID = process.env.GUILD_ID;
     const CLIENT_ID = process.env.CLIENT_ID;
@@ -17,13 +16,13 @@ function updateGuildCommands() {
 
     for (const folder of commandFolders) {
         const commandsPath = path.join(foldersPath, folder);
-        const commandFiles = fs
-            .readdirSync(commandsPath)
-            .filter((file) => file.endsWith(".js"));
+        const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith(".js"));
+
         for (const file of commandFiles) {
             const filePath = path.join(commandsPath, file);
             const command = require(filePath);
             if ("data" in command && "execute" in command) {
+                logger.info(`[ LOADING ] ${command.data.name}`);
                 commands.push(command.data.toJSON());
             } else {
                 logger.warn(
@@ -37,22 +36,17 @@ function updateGuildCommands() {
 
     (async () => {
         try {
-            logger.info(
-                `Started refreshing ${commands.length} application (/) commands.`,
-            );
+            logger.info(`Started refreshing ${commands.length} application (/) commands.`);
 
-            const data = await rest.put(
-                Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID),
-                { body: commands },
-            );
+            const data = await rest.put(Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID), {
+                body: commands,
+            });
 
-            logger.info(
-                `Successfully reloaded ${data.length} application (/) commands.`,
-            );
+            logger.info(`Successfully reloaded ${data.length} application (/) commands.`);
         } catch (error) {
             logger.error(error);
         }
     })();
-}
+})();
 
-module.exports = updateGuildCommands;
+// module.exports = updateGuildCommands;

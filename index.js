@@ -2,7 +2,8 @@ const fs = require("node:fs");
 const path = require("node:path");
 const { Client, Collection, GatewayIntentBits } = require("discord.js");
 const { Player } = require("discord-player");
-const { YoutubeExtractor } = require("@discord-player/extractor");
+// const { YoutubeExtractor } = require("@discord-player/extractor");
+const { YoutubeiExtractor } = require("discord-player-youtubei");
 require("dotenv").config();
 const { ACTIVITY, STATUS, TOKEN, CLIENT_ID } = process.env;
 const { logger, createTables, shutdownHandler } = require("./src/helpers");
@@ -87,14 +88,12 @@ for (const file of eventFiles) {
 }
 
 /** Agregamos el reproductor de música */
-const player = new Player(client, {
-    skipFFmpeg: true,
-    ytdlOptions: {
-        quality: "highestaudio",
-        highWaterMark: 1 << 25,
-    },
+const player = new Player(client);
+player.extractors.register(YoutubeiExtractor, {});
+
+player.events.on("playerStart", (queue, track) => {
+    queue.metadata.channel.send(`Now Playing **${track.title}**!`);
 });
-player.extractors.register(YoutubeExtractor, {});
 
 player.on("error", (queue, error) => {
     logger.error(`Error en la cola ${queue.guild.id}: ${error.message}`);

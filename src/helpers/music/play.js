@@ -61,7 +61,7 @@ const play = async (interaction) => {
                 playlist
                     .slice(0, 10)
                     .map((song, i) => {
-                        return `${i + 1}. [${song.raw.title}](${song.url}) - [${song.duration}]`;
+                        return `${i + 1}. [${song.title}](${song.url}) - [${song.duration}]`;
                     })
                     .join("\n"),
             )

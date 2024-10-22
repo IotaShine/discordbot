@@ -60,7 +60,7 @@ const save = async (interaction) => {
         const canciones = tracks
             .slice(0, 10)
             .map(song => {
-                return song.raw.title;
+                return song.title;
             })
             .join("\n");
 

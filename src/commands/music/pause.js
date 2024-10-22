@@ -24,7 +24,7 @@ module.exports = {
                     new EmbedBuilder()
                         .setTitle("**[ PAUSED ]**")
                         .setColor("Random")
-                        .setDescription(`**[${currentTrack.raw.title}]**\nHas been paused.`)
+                        .setDescription(`**[${currentTrack.title}]**\nHas been paused.`)
                         .setFooter({ text: `Duration: ${currentTrack.duration}` })
                         .setThumbnail(currentTrack.thumbnail),
                 ],

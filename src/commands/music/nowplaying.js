@@ -29,7 +29,7 @@ module.exports = {
                 embeds: [
                     new EmbedBuilder()
                         .setTitle("**[ CURRENT TRACK ]**")
-                        .setDescription(`[${currentTrack.raw.title}](${currentTrack.url})`)
+                        .setDescription(`[${currentTrack.title}](${currentTrack.url})`)
                         .setFooter({ text: `Duration: **[ ${currentTrack.duration} ]**` })
                         .setThumbnail(currentTrack.thumbnail)
                         .setColor("Random"),

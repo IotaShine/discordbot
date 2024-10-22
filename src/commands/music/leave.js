@@ -18,7 +18,7 @@ module.exports = {
 
         try {
             const queue = useQueue(interaction.guild.id);
-            if (queue && queue.connection && queue.connection.channel.id !== vc.id) {
+            if (queue && queue.connection && queue.channel.id !== vc.id) {
                 return await interaction.reply(`**[ NOTICE ]** I can't leave since you're not in ${queue.connection.channel}`);
             }
             if (!queue) return await interaction.reply("**[ NOTICE ]** I'm not in a voice channel.");
