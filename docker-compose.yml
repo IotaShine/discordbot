@@ -1,8 +1,7 @@
-version: "3"
 services:
-    thanujica:
+    discordbot:
+        build: .
         container_name: discordbot
-        image: ghcr.io/iotashine/discordbot:main
         restart: unless-stopped
         volumes:
             # Important for persistence
