@@ -4,7 +4,7 @@ This Discord bot is designed to enhance your Discord server with music playback,
 
 ## Features
 
--   Music playback from YouTube and Spotify
+-   Music playback from YouTube
 -   Dynamic command deployment
 -   Server-specific configuration
 
