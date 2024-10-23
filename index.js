@@ -9,6 +9,7 @@ const { ACTIVITY, STATUS, TOKEN, CLIENT_ID } = process.env;
 const { logger, createTables, shutdownHandler } = require("./src/helpers");
 const db = require("./src/helpers/db/database");
 const checkFirstRun = require("./scripts/first-run-check");
+const onPlayerStart = require("./src/helpers/music/playerStart");
 
 // FIXME - Remove the db from the client and use the db from the helpers/db/database.js
 // FIXME - Fix date and time in docker container
@@ -91,9 +92,7 @@ for (const file of eventFiles) {
 const player = new Player(client);
 player.extractors.register(YoutubeiExtractor, {});
 
-player.events.on("playerStart", (queue, track) => {
-    queue.metadata.channel.send(`Now Playing **${track.title}**!`);
-});
+player.events.on("playerStart", onPlayerStart);
 
 player.on("error", (queue, error) => {
     logger.error(`Error en la cola ${queue.guild.id}: ${error.message}`);

@@ -34,7 +34,9 @@ module.exports = {
         try {
             const request = interaction.options.getString("song");
 
-            const searchResult = await player.search(request);
+            const searchResult = await player.search(request, { 
+                requestedBy: interaction.user, 
+            });
             if (searchResult.isEmpty()) return interaction.followUp("**[ NOTICE ]** No results found.");
             const track = searchResult.tracks[0];
             queue.insertTrack(track, 0);

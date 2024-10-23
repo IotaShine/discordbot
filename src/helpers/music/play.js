@@ -51,7 +51,7 @@ const play = async (interaction) => {
         }
 
         const temas = await JSON.parse(request.songs);
-        const playlist = await temas.map(song => new Track(player, { ...song }));
+        const playlist = await temas.map(song => new Track(player, { ...song, requestedBy: interaction.user }));
 
         const embed = new EmbedBuilder()
             .setTitle(`Starting to play: **【${nombre}】**`)
