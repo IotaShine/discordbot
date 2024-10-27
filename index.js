@@ -11,9 +11,6 @@ const db = require("./src/helpers/db/database");
 const checkFirstRun = require("./scripts/first-run-check");
 const onPlayerStart = require("./src/helpers/music/playerStart");
 
-// FIXME - Remove the db from the client and use the db from the helpers/db/database.js
-// FIXME - Fix date and time in docker container
-
 /** Refrescamos los comandos */
 
 if (!TOKEN) {

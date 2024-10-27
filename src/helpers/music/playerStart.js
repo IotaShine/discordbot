@@ -18,7 +18,7 @@ function onPlayerStart(queue, track) {
         .setThumbnail(thumbnail)
         .setFooter({ text: `Requested by ${track.requestedBy?.tag}` });
 
-    queue.metadata.channel.send({ embeds: [embed] });
+    queue.metadata.channel?.send({ embeds: [embed] });
 }
 
 module.exports = onPlayerStart;

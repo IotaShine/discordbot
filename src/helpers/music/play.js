@@ -15,7 +15,9 @@ const playlistPlay = async (user_id, nombre) => {
     return new Promise((resolve, reject) => {
         db.get(sql, [user_id, nombre], (err, row) => {
             if (err) return reject(err);
-            if (!row || row == undefined) return reject(new Error("No existe una playlist con ese nombre"));
+            if (!row || row == undefined) {
+                return reject(new Error("No existe una playlist con ese nombre"));
+            }
 
             resolve(row);
         });
@@ -23,10 +25,10 @@ const playlistPlay = async (user_id, nombre) => {
 };
 
 /**
-* Handles the discord interaction of playing a playlist
-* @param {import("discord.js").CommandInteraction} interaction
-*/
-const play = async (interaction) => {
+ * Handles the discord interaction of playing a playlist
+ * @param {import("discord.js").CommandInteraction} interaction
+ */
+const play = async interaction => {
     if (!interaction.member.voice.channel) {
         return await interaction.reply("**[ NOTICE ]** You need to be in a voice channel.");
     }
@@ -47,11 +49,15 @@ const play = async (interaction) => {
         const request = await playlistPlay(user_id, nombre);
 
         if (!request || request == undefined) {
-            return await interaction.followUp("**[ NOTICE ]** There isn't a playlist with that name.");
+            return await interaction.followUp(
+                "**[ NOTICE ]** There isn't a playlist with that name.",
+            );
         }
 
         const temas = await JSON.parse(request.songs);
-        const playlist = await temas.map(song => new Track(player, { ...song, requestedBy: interaction.user }));
+        const playlist = await temas.map(
+            song => new Track(player, { ...song, requestedBy: interaction.user }),
+        );
 
         const embed = new EmbedBuilder()
             .setTitle(`Starting to play: **【${nombre}】**`)
@@ -67,7 +73,12 @@ const play = async (interaction) => {
             )
             .setFooter({ text: "Only the first 10 song appear." });
 
-        await queue.play(playlist[0]);
+        await queue.play(playlist[0], {
+            requestedBy: interaction.user,
+            nodeOptions: {
+                metadata: interaction,
+            },
+        });
         playlist.shift();
         queue.addTrack(playlist);
 
