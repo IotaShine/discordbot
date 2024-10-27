@@ -8,6 +8,8 @@ const { EmbedBuilder } = require("discord.js");
 function onPlayerStart(queue, track) {
     const { title, thumbnail } = track;
 
+    if (!queue.metadata) return;
+
     const embed = new EmbedBuilder()
         .setTitle(`Now Playing: **【${title}】**`)
         .setColor("Random")
@@ -18,7 +20,7 @@ function onPlayerStart(queue, track) {
         .setThumbnail(thumbnail)
         .setFooter({ text: `Requested by ${track.requestedBy?.tag}` });
 
-    queue.metadata.channel?.send({ embeds: [embed] });
+    queue.metadata.channel.send({ embeds: [embed] });
 }
 
 module.exports = onPlayerStart;

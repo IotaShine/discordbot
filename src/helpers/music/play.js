@@ -56,7 +56,11 @@ const play = async interaction => {
 
         const temas = await JSON.parse(request.songs);
         const playlist = await temas.map(
-            song => new Track(player, { ...song, requestedBy: interaction.user }),
+            song =>
+                new Track(player, {
+                    ...song,
+                    requestedBy: interaction.user,
+                }),
         );
 
         const embed = new EmbedBuilder()
@@ -79,6 +83,7 @@ const play = async interaction => {
                 metadata: interaction,
             },
         });
+        queue.setMetadata(interaction);
         playlist.shift();
         queue.addTrack(playlist);
 
